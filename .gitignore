@@ -1,0 +1,29 @@
+# Node / Frontend
+node_modules/
+frontend/node_modules/
+frontend/dist/
+dist/
+
+# Environment files
+.env
+.env.local
+*.env
+
+# Python / Backend
+__pycache__/
+*.py[cod]
+*.egg-info/
+venv/
+.venv/
+
+# Large Model Files
+backend/models/*.h5
+backend/models/*.pt
+backend/models/*.pth
+backend/models/*.pb
+
+# System / IDE
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

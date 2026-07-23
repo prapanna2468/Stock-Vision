@@ -1,0 +1,3250 @@
+%PDF-1.4
+%âãÏÓ
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [4 0 R 6 0 R 8 0 R 10 0 R 12 0 R 14 0 R 16 0 R 18 0 R 20 0 R 22 0 R 24 0 R 26 0 R 28 0 R 30 0 R 32 0 R 34 0 R 36 0 R 38 0 R 40 0 R 42 0 R 44 0 R 46 0 R 48 0 R 50 0 R 52 0 R 54 0 R] /Count 26 >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+4 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R >> >> /Contents 5 0 R >>
+endobj
+5 0 obj
+<< /Length 3481 >>
+stream
+BT
+/F1 9 Tf
+50 742 Td
+(StockVision Software Testing Chat History) Tj
+0 -12 Td
+(Session ID: session_snake_1784215078178_ed1d46dfd6d40f49) Tj
+0 -12 Td
+(Created: 2026-07-16T15:17:58.177892900Z) Tj
+0 -12 Td
+(Updated: 2026-07-17T03:58:05.233908800Z) Tj
+0 -12 Td
+(Source: C:\\Users\\user\\.jcode\\sessions\\session_snake_1784215078178_ed1d46dfd6d40f49.json) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(========================================================================) Tj
+0 -12 Td
+([2026-07-16T15:19:23.335217900Z] USER) Tj
+0 -12 Td
+(------------------------------------------------------------------------) Tj
+0 -12 Td
+(I'm working on a Software Testing \(ITS64704\) group assignment where I need to create a ) Tj
+0 -12 Td
+(Software Test Plan and Test Execution Report based on this project. Please give me a ) Tj
+0 -12 Td
+(comprehensive knowledge dump of the project so I can use it to build these testing ) Tj
+0 -12 Td
+(documents. Structure your answer with these exact headings:) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(========================================================================) Tj
+0 -12 Td
+([2026-07-16T15:19:38.537628500Z] USER) Tj
+0 -12 Td
+(------------------------------------------------------------------------) Tj
+0 -12 Td
+(Project Name & One-Line Description) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(Project Objectives \(business goals, what problem it solves\)) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(Target Users / Stakeholders \(roles: admin, end user, etc.\)) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(Functional Requirements ? list every feature/module the system has, grouped by module \(e.g. ) Tj
+0 -12 Td
+(Authentication, Dashboard, Data Input, Reporting, etc.\), each as a short bullet) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(Non-Functional Requirements ? performance, security, usability, scalability, availability ) Tj
+0 -12 Td
+(targets if any) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(Business Rules / Validation Rules ? e.g. field constraints, workflow rules, access control ) Tj
+0 -12 Td
+(rules) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(System Architecture Summary ? frontend stack, backend stack, database, APIs, third-party ) Tj
+0 -12 Td
+(integrations) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(User Roles & Permissions ? what each role can/cannot do) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(Key User Workflows / Use Cases ? step-by-step for the top 5-8 core flows \(e.g. login, submit) Tj
+0 -12 Td
+( form, generate report, admin approval, etc.\)) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(Known Constraints or Assumptions ? anything explicitly out of scope, environment ) Tj
+0 -12 Td
+(limitations, dependencies) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(Data Entities ? main objects the system stores \(e.g. User, Order, Report\) and key fields for) Tj
+0 -12 Td
+( each) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(Be as specific and exhaustive as possible ? this will be the single source of truth I use to) Tj
+0 -12 Td
+( write test scope, test strategy, and test cases, so don't leave features vague. If some ) Tj
+0 -12 Td
+(sections don't apply, say so explicitly rather than skipping them.) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(========================================================================) Tj
+0 -12 Td
+([2026-07-16T15:19:57.750794400Z] ASSISTANT) Tj
+0 -12 Td
+(------------------------------------------------------------------------) Tj
+0 -12 Td
+(I?ll inspect the repo first so the dump is grounded in the actual implementation, then I?ll ) Tj
+0 -12 Td
+(synthesize it under your exact headings.) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(========================================================================) Tj
+ET
+endstream
+endobj
+6 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R >> >> /Contents 7 0 R >>
+endobj
+7 0 obj
+<< /Length 3528 >>
+stream
+BT
+/F1 9 Tf
+50 742 Td
+([2026-07-16T15:28:03.460646300Z] ASSISTANT) Tj
+0 -12 Td
+(------------------------------------------------------------------------) Tj
+0 -12 Td
+(## Project Name & One-Line Description) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(**StockVision** is an AI-powered stock market forecasting dashboard that retrieves Yahoo ) Tj
+0 -12 Td
+(Finance market data, generates ARIMA and LSTM stock price forecasts, visualizes historical ) Tj
+0 -12 Td
+(and predicted prices, displays technical indicators, and produces analysis reports.) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(## Project Objectives \(business goals, what problem it solves\)) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(- Help users analyze stocks through a single visual dashboard instead of manually checking ) Tj
+0 -12 Td
+(multiple finance tools.) Tj
+0 -12 Td
+(- Provide short-term stock price forecasts using two model families: **ARIMA** and **LSTM**.) Tj
+0 -12 Td
+(- Allow comparison between model outputs using evaluation metrics such as **MAE**, **RMSE**,) Tj
+0 -12 Td
+( and **MAPE**.) Tj
+0 -12 Td
+(- Provide technical analysis indicators such as **RSI**, **MACD**, and **Bollinger Bands**.) Tj
+0 -12 Td
+(- Present historical market data and future predictions in interactive charts.) Tj
+0 -12 Td
+(- Support quick lookup of popular stocks and ETFs.) Tj
+0 -12 Td
+(- Provide a report-style summary that turns model predictions and indicators into a ) Tj
+0 -12 Td
+(simplified buy, hold, or sell recommendation.) Tj
+0 -12 Td
+(- Allow users to export forecast data as CSV for offline analysis or report usage.) Tj
+0 -12 Td
+(- Provide a local portfolio simulator component, although it is currently not wired into the) Tj
+0 -12 Td
+( main navigation.) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(## Target Users / Stakeholders \(roles: admin, end user, etc.\)) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(- **End users / retail investors**) Tj
+0 -12 Td
+(  - Use the dashboard to search tickers, view stock forecasts, compare ARIMA and LSTM ) Tj
+0 -12 Td
+(predictions, inspect indicators, and generate reports.) Tj
+0 -12 Td
+(- **Students / researchers**) Tj
+0 -12 Td
+(  - Use the project to demonstrate software testing, AI model integration, financial data ) Tj
+0 -12 Td
+(visualization, and REST API usage.) Tj
+0 -12 Td
+(- **Financial analysts / testers**) Tj
+0 -12 Td
+(  - Validate forecast outputs, indicators, model status, market data correctness, and report) Tj
+0 -12 Td
+( calculations.) Tj
+0 -12 Td
+(- **Developers**) Tj
+0 -12 Td
+(  - Maintain the React frontend, FastAPI backend, ML model loading logic, and Yahoo Finance ) Tj
+0 -12 Td
+(API integration.) Tj
+0 -12 Td
+(- **No admin role is implemented**) Tj
+0 -12 Td
+(  - There is no login, access control, account management, or admin panel in the current ) Tj
+0 -12 Td
+(project.) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(## Functional Requirements ? list every feature/module the system has, grouped by module ) Tj
+0 -12 Td
+(\(e.g. Authentication, Dashboard, Data Input, Reporting, etc.\), each as a short bullet) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(### 1. Application Shell / Navigation) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(- Display a fixed top navigation bar with the StockVision logo.) Tj
+0 -12 Td
+(- Display the product name **StockVision**.) Tj
+0 -12 Td
+(- Display the tagline **AI-Powered Forecasting**.) Tj
+0 -12 Td
+(- Show application version **v1.3**.) Tj
+0 -12 Td
+(- Provide tab navigation for:) Tj
+0 -12 Td
+(  - **Dashboard**) Tj
+0 -12 Td
+(  - **Markets**) Tj
+0 -12 Td
+(  - **Reports**) Tj
+0 -12 Td
+(- Highlight the currently active tab.) Tj
+0 -12 Td
+(- Show the sidebar only on:) Tj
+ET
+endstream
+endobj
+8 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R >> >> /Contents 9 0 R >>
+endobj
+9 0 obj
+<< /Length 2697 >>
+stream
+BT
+/F1 9 Tf
+50 742 Td
+(  - Dashboard) Tj
+0 -12 Td
+(  - Reports) Tj
+0 -12 Td
+(- Hide the sidebar on:) Tj
+0 -12 Td
+(  - Markets) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(### 2. Dashboard Module) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(- Show a welcome screen when no forecast has been generated.) Tj
+0 -12 Td
+(- Allow users to enter a stock ticker symbol.) Tj
+0 -12 Td
+(- Default ticker symbol is **AAPL**.) Tj
+0 -12 Td
+(- Default forecast horizon is **17 days**.) Tj
+0 -12 Td
+(- Allow the user to generate a forecast manually.) Tj
+0 -12 Td
+(- Display a loading overlay while data is being fetched.) Tj
+0 -12 Td
+(- Display error messages when forecast generation fails.) Tj
+0 -12 Td
+(- Allow users to dismiss forecast error messages.) Tj
+0 -12 Td
+(- After forecast data is returned, display:) Tj
+0 -12 Td
+(  - Stock header) Tj
+0 -12 Td
+(  - Historical and forecast chart) Tj
+0 -12 Td
+(  - Model evaluation metrics) Tj
+0 -12 Td
+(  - Technical indicators) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(### 3. Sidebar / Forecast Input Module) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(- Provide a ticker input field.) Tj
+0 -12 Td
+(- Convert ticker input to uppercase.) Tj
+0 -12 Td
+(- Prevent forecast generation if the ticker is blank.) Tj
+0 -12 Td
+(- Trigger forecast generation by:) Tj
+0 -12 Td
+(  - Clicking the generate button) Tj
+0 -12 Td
+(  - Pressing Enter in the input field) Tj
+0 -12 Td
+(  - Selecting a search suggestion) Tj
+0 -12 Td
+(- Allow forecast horizon selection from fixed options:) Tj
+0 -12 Td
+(  - 7 days) Tj
+0 -12 Td
+(  - 14 days) Tj
+0 -12 Td
+(  - 17 days) Tj
+0 -12 Td
+(  - 30 days) Tj
+0 -12 Td
+(- Search stock suggestions through the backend `/api/search` endpoint.) Tj
+0 -12 Td
+(- Debounce stock search requests by **200 ms**.) Tj
+0 -12 Td
+(- Show stock suggestions when the query length is at least 1 character.) Tj
+0 -12 Td
+(- Hide suggestions when:) Tj
+0 -12 Td
+(  - User presses Escape) Tj
+0 -12 Td
+(  - User clicks outside the suggestions area) Tj
+0 -12 Td
+(  - User selects a suggestion) Tj
+0 -12 Td
+(- Store recent searches in browser `localStorage` under key `sv_recent`.) Tj
+0 -12 Td
+(- Limit recent searches to the latest **5** symbols.) Tj
+0 -12 Td
+(- Check backend health/model status on sidebar mount through `/api/health`.) Tj
+0 -12 Td
+(- Display ARIMA and LSTM model status:) Tj
+0 -12 Td
+(  - Loading) Tj
+0 -12 Td
+(  - Model loaded) Tj
+0 -12 Td
+(  - Placeholder) Tj
+0 -12 Td
+(  - Pending) Tj
+0 -12 Td
+(  - Error / backend unreachable) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(### 4. Stock Search Module) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(- Backend exposes `/api/search`.) Tj
+0 -12 Td
+(- Search is based on a curated in-memory list of popular stocks and ETFs.) Tj
+0 -12 Td
+(- If the query is empty, return the first 10 popular stocks.) Tj
+ET
+endstream
+endobj
+10 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R >> >> /Contents 11 0 R >>
+endobj
+11 0 obj
+<< /Length 2399 >>
+stream
+BT
+/F1 9 Tf
+50 742 Td
+(- If the query is non-empty, match against:) Tj
+0 -12 Td
+(  - Stock symbol) Tj
+0 -12 Td
+(  - Company name) Tj
+0 -12 Td
+(- Search is case-insensitive.) Tj
+0 -12 Td
+(- Return a maximum of **8** matching results for non-empty searches.) Tj
+0 -12 Td
+(- Supported curated tickers include examples such as:) Tj
+0 -12 Td
+(  - AAPL) Tj
+0 -12 Td
+(  - MSFT) Tj
+0 -12 Td
+(  - GOOGL) Tj
+0 -12 Td
+(  - GOOG) Tj
+0 -12 Td
+(  - AMZN) Tj
+0 -12 Td
+(  - NVDA) Tj
+0 -12 Td
+(  - META) Tj
+0 -12 Td
+(  - TSLA) Tj
+0 -12 Td
+(  - SPY) Tj
+0 -12 Td
+(  - QQQ) Tj
+0 -12 Td
+(  - DIA) Tj
+0 -12 Td
+(  - IWM) Tj
+0 -12 Td
+(  - JPM) Tj
+0 -12 Td
+(  - V) Tj
+0 -12 Td
+(  - NFLX) Tj
+0 -12 Td
+(  - AMD) Tj
+0 -12 Td
+(  - COIN) Tj
+0 -12 Td
+(  - SHOP) Tj
+0 -12 Td
+(  - PLTR) Tj
+0 -12 Td
+(  - ARM) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(### 5. Forecast API Module) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(- Backend exposes `/api/forecast`.) Tj
+0 -12 Td
+(- Accepts query parameters:) Tj
+0 -12 Td
+(  - `symbol`, required string) Tj
+0 -12 Td
+(  - `days`, optional integer, default `17`) Tj
+0 -12 Td
+(- Downloads **2 years** of stock data from Yahoo Finance through `yfinance`.) Tj
+0 -12 Td
+(- Uses adjusted prices with `auto_adjust=True`.) Tj
+0 -12 Td
+(- Returns an error object if Yahoo Finance returns no data.) Tj
+0 -12 Td
+(- Handles MultiIndex columns from Yahoo Finance by flattening them.) Tj
+0 -12 Td
+(- Extracts historical:) Tj
+0 -12 Td
+(  - Close prices) Tj
+0 -12 Td
+(  - Open prices) Tj
+0 -12 Td
+(  - High prices) Tj
+0 -12 Td
+(  - Low prices) Tj
+0 -12 Td
+(  - Volume) Tj
+0 -12 Td
+(- Generates future forecast dates using business days only, excluding Saturdays and Sundays.) Tj
+0 -12 Td
+(- Generates ARIMA predictions.) Tj
+0 -12 Td
+(- Generates LSTM predictions.) Tj
+0 -12 Td
+(- Uses placeholder ARIMA predictions if the ARIMA model file is unavailable or prediction ) Tj
+0 -12 Td
+(fails.) Tj
+0 -12 Td
+(- Uses placeholder LSTM predictions if the LSTM model file is unavailable, data is ) Tj
+0 -12 Td
+(insufficient, or prediction fails.) Tj
+0 -12 Td
+(- Generates ARIMA past predictions for backtesting using placeholder logic.) Tj
+0 -12 Td
+(- Generates LSTM past predictions using the real LSTM model if available.) Tj
+0 -12 Td
+(- Generates placeholder LSTM past predictions if LSTM backtesting is unavailable.) Tj
+0 -12 Td
+(- Returns technical indicators:) Tj
+0 -12 Td
+(  - RSI) Tj
+0 -12 Td
+(  - MACD) Tj
+0 -12 Td
+(  - MACD signal) Tj
+ET
+endstream
+endobj
+12 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R >> >> /Contents 13 0 R >>
+endobj
+13 0 obj
+<< /Length 2349 >>
+stream
+BT
+/F1 9 Tf
+50 742 Td
+(  - Bollinger upper band) Tj
+0 -12 Td
+(  - Bollinger lower band) Tj
+0 -12 Td
+(- Returns evaluation metrics:) Tj
+0 -12 Td
+(  - ARIMA MAE) Tj
+0 -12 Td
+(  - ARIMA RMSE) Tj
+0 -12 Td
+(  - ARIMA MAPE) Tj
+0 -12 Td
+(  - ARIMA source, either `model` or `placeholder`) Tj
+0 -12 Td
+(  - LSTM MAE) Tj
+0 -12 Td
+(  - LSTM RMSE) Tj
+0 -12 Td
+(  - LSTM MAPE) Tj
+0 -12 Td
+(  - LSTM source, either `model` or `placeholder`) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(### 6. Forecast Chart Module) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(- Uses Plotly via `react-plotly.js`.) Tj
+0 -12 Td
+(- Shows a placeholder panel when no forecast data is available.) Tj
+0 -12 Td
+(- Displays historical stock price data as a candlestick chart.) Tj
+0 -12 Td
+(- Displays ARIMA past prediction line.) Tj
+0 -12 Td
+(- Displays LSTM past prediction line.) Tj
+0 -12 Td
+(- Displays ARIMA future forecast line.) Tj
+0 -12 Td
+(- Displays LSTM future forecast line.) Tj
+0 -12 Td
+(- Filters out null and NaN values before plotting.) Tj
+0 -12 Td
+(- Uses distinct styling:) Tj
+0 -12 Td
+(  - Green candles for increasing prices) Tj
+0 -12 Td
+(  - Red candles for decreasing prices) Tj
+0 -12 Td
+(  - Blue ARIMA line) Tj
+0 -12 Td
+(  - Orange LSTM line) Tj
+0 -12 Td
+(- Shows forecast traces using markers and dashed/dotted line styles.) Tj
+0 -12 Td
+(- Supports Plotly interactive chart behavior such as hover, zoom, and legend toggling.) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(### 7. Stock Header Module) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(- Displays the selected stock symbol.) Tj
+0 -12 Td
+(- Displays company/exchange labels for known symbols:) Tj
+0 -12 Td
+(  - AAPL) Tj
+0 -12 Td
+(  - TSLA) Tj
+0 -12 Td
+(  - GOOGL) Tj
+0 -12 Td
+(  - MSFT) Tj
+0 -12 Td
+(  - AMZN) Tj
+0 -12 Td
+(  - META) Tj
+0 -12 Td
+(  - NVDA) Tj
+0 -12 Td
+(  - NFLX) Tj
+0 -12 Td
+(  - BTC) Tj
+0 -12 Td
+(- Displays fallback label as `{SYMBOL} · STOCK`.) Tj
+0 -12 Td
+(- Displays latest close price.) Tj
+0 -12 Td
+(- Calculates and displays one-day price change.) Tj
+0 -12 Td
+(- Calculates and displays one-day percentage change.) Tj
+0 -12 Td
+(- Styles positive changes in green.) Tj
+0 -12 Td
+(- Styles negative changes in red.) Tj
+0 -12 Td
+(- Provides time range tabs:) Tj
+0 -12 Td
+(  - 1W) Tj
+0 -12 Td
+(  - 1M) Tj
+0 -12 Td
+(  - 3M) Tj
+0 -12 Td
+(  - 6M) Tj
+0 -12 Td
+(  - 1Y) Tj
+0 -12 Td
+(  - 2Y) Tj
+0 -12 Td
+(- Tracks selected time range in component state.) Tj
+ET
+endstream
+endobj
+14 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R >> >> /Contents 15 0 R >>
+endobj
+15 0 obj
+<< /Length 2389 >>
+stream
+BT
+/F1 9 Tf
+50 742 Td
+(- Provides CSV export functionality.) Tj
+0 -12 Td
+(- CSV export includes:) Tj
+0 -12 Td
+(  - Date) Tj
+0 -12 Td
+(  - Open) Tj
+0 -12 Td
+(  - High) Tj
+0 -12 Td
+(  - Low) Tj
+0 -12 Td
+(  - Close) Tj
+0 -12 Td
+(  - Volume) Tj
+0 -12 Td
+(  - Type) Tj
+0 -12 Td
+(  - ARIMA Forecast) Tj
+0 -12 Td
+(  - LSTM Forecast) Tj
+0 -12 Td
+(- CSV contains both historical rows and forecast rows.) Tj
+0 -12 Td
+(- CSV file name format is:) Tj
+0 -12 Td
+(  - `{SYMBOL}_forecast_{YYYY-MM-DD}.csv`) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(### 8. Model Evaluation Module) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(- Shows a placeholder message before forecast generation.) Tj
+0 -12 Td
+(- Displays ARIMA evaluation metrics.) Tj
+0 -12 Td
+(- Displays LSTM evaluation metrics.) Tj
+0 -12 Td
+(- Displays:) Tj
+0 -12 Td
+(  - MAE) Tj
+0 -12 Td
+(  - RMSE) Tj
+0 -12 Td
+(  - MAPE) Tj
+0 -12 Td
+(- Shows the forecast horizon in days.) Tj
+0 -12 Td
+(- Compares ARIMA and LSTM using MAE.) Tj
+0 -12 Td
+(- Marks the model with the lower MAE as the better model.) Tj
+0 -12 Td
+(- Displays a verdict indicating whether ARIMA or LSTM performs better.) Tj
+0 -12 Td
+(- Uses green highlighting for the selected better model.) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(### 9. Technical Indicators Module) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(- Shows a placeholder message before forecast generation.) Tj
+0 -12 Td
+(- Allows users to toggle indicators:) Tj
+0 -12 Td
+(  - RSI) Tj
+0 -12 Td
+(  - MACD) Tj
+0 -12 Td
+(  - Bollinger Bands) Tj
+0 -12 Td
+(- Default active indicator is **RSI**.) Tj
+0 -12 Td
+(- RSI chart:) Tj
+0 -12 Td
+(  - Displays RSI line.) Tj
+0 -12 Td
+(  - Uses 0 to 100 y-axis range.) Tj
+0 -12 Td
+(  - Shows overbought threshold at 70.) Tj
+0 -12 Td
+(  - Shows oversold threshold at 30.) Tj
+0 -12 Td
+(  - Labels overbought and oversold zones.) Tj
+0 -12 Td
+(- MACD chart:) Tj
+0 -12 Td
+(  - Displays MACD line.) Tj
+0 -12 Td
+(  - Displays MACD signal line.) Tj
+0 -12 Td
+(  - Displays histogram difference between MACD and signal.) Tj
+0 -12 Td
+(  - Uses green bars for positive histogram values.) Tj
+0 -12 Td
+(  - Uses red bars for negative histogram values.) Tj
+0 -12 Td
+(- Bollinger Bands chart:) Tj
+0 -12 Td
+(  - Displays close price.) Tj
+0 -12 Td
+(  - Displays upper Bollinger band.) Tj
+0 -12 Td
+(  - Displays lower Bollinger band.) Tj
+0 -12 Td
+(- Filters invalid null or NaN values before plotting.) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(### 10. Markets Overview Module) Tj
+ET
+endstream
+endobj
+16 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R >> >> /Contents 17 0 R >>
+endobj
+17 0 obj
+<< /Length 2464 >>
+stream
+BT
+/F1 9 Tf
+50 742 Td
+() Tj
+0 -12 Td
+(- Backend exposes `/api/markets`.) Tj
+0 -12 Td
+(- Frontend displays a Markets Overview page.) Tj
+0 -12 Td
+(- Automatically loads market data on page mount.) Tj
+0 -12 Td
+(- Shows loading state while market data is fetched.) Tj
+0 -12 Td
+(- Shows an error state if market data fails.) Tj
+0 -12 Td
+(- Fetches market overview for:) Tj
+0 -12 Td
+(  - SPY) Tj
+0 -12 Td
+(  - QQQ) Tj
+0 -12 Td
+(  - DIA) Tj
+0 -12 Td
+(  - AAPL) Tj
+0 -12 Td
+(  - TSLA) Tj
+0 -12 Td
+(  - NVDA) Tj
+0 -12 Td
+(  - MSFT) Tj
+0 -12 Td
+(  - GOOGL) Tj
+0 -12 Td
+(  - AMZN) Tj
+0 -12 Td
+(- Downloads 5 days of Yahoo Finance data.) Tj
+0 -12 Td
+(- Displays table columns:) Tj
+0 -12 Td
+(  - Ticker) Tj
+0 -12 Td
+(  - Name) Tj
+0 -12 Td
+(  - Price) Tj
+0 -12 Td
+(  - Change) Tj
+0 -12 Td
+(  - % Change) Tj
+0 -12 Td
+(  - High) Tj
+0 -12 Td
+(  - Low) Tj
+0 -12 Td
+(  - Action) Tj
+0 -12 Td
+(- Calculates current price from latest close.) Tj
+0 -12 Td
+(- Calculates price change from previous close.) Tj
+0 -12 Td
+(- Calculates percentage change.) Tj
+0 -12 Td
+(- Displays positive change in green.) Tj
+0 -12 Td
+(- Displays negative change in red.) Tj
+0 -12 Td
+(- Allows the user to click a market row to generate a forecast for that symbol.) Tj
+0 -12 Td
+(- Includes Forecast action behavior through `onForecastSelect`.) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(### 11. Reports Module) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(- Shows a **No Forecast Loaded** message when no forecast data exists.) Tj
+0 -12 Td
+(- Requires a forecast to be generated before report content is shown.) Tj
+0 -12 Td
+(- Uses the current forecast data from the Dashboard.) Tj
+0 -12 Td
+(- Calculates latest close price.) Tj
+0 -12 Td
+(- Calculates ARIMA target as the final ARIMA forecast value.) Tj
+0 -12 Td
+(- Calculates ARIMA percentage change against latest close.) Tj
+0 -12 Td
+(- Classifies ARIMA signal:) Tj
+0 -12 Td
+(  - Bullish if change > 1.0%) Tj
+0 -12 Td
+(  - Bearish if change < -1.0%) Tj
+0 -12 Td
+(  - Neutral otherwise) Tj
+0 -12 Td
+(- Calculates LSTM target as the final LSTM forecast value.) Tj
+0 -12 Td
+(- Calculates LSTM percentage change against latest close.) Tj
+0 -12 Td
+(- Classifies LSTM signal:) Tj
+0 -12 Td
+(  - Bullish if change > 1.0%) Tj
+0 -12 Td
+(  - Bearish if change < -1.0%) Tj
+0 -12 Td
+(  - Neutral otherwise) Tj
+0 -12 Td
+(- Reads latest RSI value.) Tj
+0 -12 Td
+(- Classifies RSI:) Tj
+0 -12 Td
+(  - Overbought if RSI >= 70) Tj
+0 -12 Td
+(  - Oversold if RSI <= 30) Tj
+0 -12 Td
+(  - Neutral otherwise) Tj
+ET
+endstream
+endobj
+18 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R >> >> /Contents 19 0 R >>
+endobj
+19 0 obj
+<< /Length 2691 >>
+stream
+BT
+/F1 9 Tf
+50 742 Td
+(- Reads latest MACD and MACD signal values.) Tj
+0 -12 Td
+(- Calculates MACD difference.) Tj
+0 -12 Td
+(- Classifies MACD:) Tj
+0 -12 Td
+(  - Bullish if MACD difference > 0.05) Tj
+0 -12 Td
+(  - Bearish if MACD difference < -0.05) Tj
+0 -12 Td
+(  - Neutral otherwise) Tj
+0 -12 Td
+(- Reads latest Bollinger upper and lower bands.) Tj
+0 -12 Td
+(- Classifies Bollinger Bands:) Tj
+0 -12 Td
+(  - Overbought if latest close >= upper band × 0.97) Tj
+0 -12 Td
+(  - Oversold if latest close <= lower band × 1.03) Tj
+0 -12 Td
+(  - Neutral otherwise) Tj
+0 -12 Td
+(- Calculates an overall score:) Tj
+0 -12 Td
+(  - ARIMA Bullish: +2) Tj
+0 -12 Td
+(  - ARIMA Bearish: -2) Tj
+0 -12 Td
+(  - LSTM Bullish: +2) Tj
+0 -12 Td
+(  - LSTM Bearish: -2) Tj
+0 -12 Td
+(  - RSI Oversold: +1) Tj
+0 -12 Td
+(  - RSI Overbought: -1) Tj
+0 -12 Td
+(  - MACD Bullish: +1) Tj
+0 -12 Td
+(  - MACD Bearish: -1) Tj
+0 -12 Td
+(  - Bollinger Oversold: +1) Tj
+0 -12 Td
+(  - Bollinger Overbought: -1) Tj
+0 -12 Td
+(- Converts score into recommendation:) Tj
+0 -12 Td
+(  - Score >= 4: Strong Buy) Tj
+0 -12 Td
+(  - Score >= 1: Buy) Tj
+0 -12 Td
+(  - Score <= -4: Strong Sell) Tj
+0 -12 Td
+(  - Score <= -1: Sell) Tj
+0 -12 Td
+(  - Otherwise: Hold) Tj
+0 -12 Td
+(- Provides a printable report using `window.print\(\)`.) Tj
+0 -12 Td
+(- Defines print-specific CSS to hide navigation, sidebar, buttons, and non-print UI.) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(### 12. Portfolio Simulator Module) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(- A `PortfolioView.jsx` component exists, but it is **not currently connected to the main ) Tj
+0 -12 Td
+(navigation** in `App.jsx`.) Tj
+0 -12 Td
+(- If integrated, it supports local portfolio simulation.) Tj
+0 -12 Td
+(- Starts with default cash balance of **$100,000.00**.) Tj
+0 -12 Td
+(- Stores portfolio state in browser `localStorage`.) Tj
+0 -12 Td
+(- Uses localStorage keys:) Tj
+0 -12 Td
+(  - `stockvision_cash`) Tj
+0 -12 Td
+(  - `stockvision_holdings`) Tj
+0 -12 Td
+(  - `stockvision_transactions`) Tj
+0 -12 Td
+(- Supports buy transactions.) Tj
+0 -12 Td
+(- Supports sell transactions.) Tj
+0 -12 Td
+(- Tracks holdings.) Tj
+0 -12 Td
+(- Tracks transaction history.) Tj
+0 -12 Td
+(- Fetches live prices for held symbols using `/api/prices`.) Tj
+0 -12 Td
+(- Refreshes live prices every **30 seconds**.) Tj
+0 -12 Td
+(- Calculates portfolio value.) Tj
+0 -12 Td
+(- Calculates market value.) Tj
+0 -12 Td
+(- Calculates gain/loss.) Tj
+0 -12 Td
+(- Allows portfolio reset after confirmation.) Tj
+0 -12 Td
+(- Validates transaction inputs:) Tj
+0 -12 Td
+(  - Symbol is required.) Tj
+0 -12 Td
+(  - Shares must be a positive integer.) Tj
+0 -12 Td
+(  - Price must be a positive number.) Tj
+0 -12 Td
+(  - Buy requires enough cash.) Tj
+ET
+endstream
+endobj
+20 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R >> >> /Contents 21 0 R >>
+endobj
+21 0 obj
+<< /Length 2501 >>
+stream
+BT
+/F1 9 Tf
+50 742 Td
+(  - Sell requires enough owned shares.) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(### 13. Backend Health Module) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(- Backend exposes `/api/health`.) Tj
+0 -12 Td
+(- Returns general status:) Tj
+0 -12 Td
+(  - `status: "ok"`) Tj
+0 -12 Td
+(- Returns ARIMA model health:) Tj
+0 -12 Td
+(  - Status) Tj
+0 -12 Td
+(  - Loaded boolean) Tj
+0 -12 Td
+(  - Model file path) Tj
+0 -12 Td
+(  - Message) Tj
+0 -12 Td
+(- Returns LSTM model health:) Tj
+0 -12 Td
+(  - Status) Tj
+0 -12 Td
+(  - Loaded boolean) Tj
+0 -12 Td
+(  - Model file path) Tj
+0 -12 Td
+(  - Message) Tj
+0 -12 Td
+(- Reports model as `ready` if the model file exists.) Tj
+0 -12 Td
+(- Reports model as `placeholder` if the model file does not exist.) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(### 14. Prices API Module) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(- Backend exposes `/api/prices`.) Tj
+0 -12 Td
+(- Accepts query parameter:) Tj
+0 -12 Td
+(  - `symbols`, required comma-separated string) Tj
+0 -12 Td
+(- Normalizes symbols by trimming whitespace and converting to uppercase.) Tj
+0 -12 Td
+(- Returns an empty object if no symbols are provided after parsing.) Tj
+0 -12 Td
+(- Downloads 5 days of data from Yahoo Finance.) Tj
+0 -12 Td
+(- Returns the latest close price for each requested symbol.) Tj
+0 -12 Td
+(- Handles single-symbol and multi-symbol Yahoo Finance response formats.) Tj
+0 -12 Td
+(- Returns `{error: message}` if an exception occurs.) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(### 15. Authentication Module) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(- Not implemented.) Tj
+0 -12 Td
+(- No login page exists.) Tj
+0 -12 Td
+(- No registration page exists.) Tj
+0 -12 Td
+(- No password reset exists.) Tj
+0 -12 Td
+(- No sessions or JWT tokens exist.) Tj
+0 -12 Td
+(- No backend user model exists.) Tj
+0 -12 Td
+(- No role-based access control exists.) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(### 16. Database / Persistence Module) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(- No server-side database is implemented.) Tj
+0 -12 Td
+(- Forecasts are not stored permanently.) Tj
+0 -12 Td
+(- Users are not stored permanently.) Tj
+0 -12 Td
+(- Reports are not stored permanently.) Tj
+0 -12 Td
+(- Portfolio data, if the unused PortfolioView is integrated, is stored client-side in ) Tj
+0 -12 Td
+(`localStorage`.) Tj
+0 -12 Td
+(- Recent searches are stored client-side in `localStorage`.) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(## Non-Functional Requirements ? performance, security, usability, scalability, availability) Tj
+0 -12 Td
+( targets if any) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(### Performance) Tj
+0 -12 Td
+() Tj
+ET
+endstream
+endobj
+22 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R >> >> /Contents 23 0 R >>
+endobj
+23 0 obj
+<< /Length 3510 >>
+stream
+BT
+/F1 9 Tf
+50 742 Td
+(- Frontend uses **React 18** with **Vite 5**, which supports fast development builds and ) Tj
+0 -12 Td
+(optimized production builds.) Tj
+0 -12 Td
+(- Backend uses **FastAPI**, which is suitable for lightweight REST APIs.) Tj
+0 -12 Td
+(- Stock search suggestions are debounced by **200 ms** to reduce excessive API calls.) Tj
+0 -12 Td
+(- LSTM model is loaded lazily and cached in memory after first load.) Tj
+0 -12 Td
+(- ARIMA model is loaded lazily and cached in memory after first load.) Tj
+0 -12 Td
+(- Portfolio live prices refresh every **30 seconds**.) Tj
+0 -12 Td
+(- Market overview requests fetch only 5 days of data.) Tj
+0 -12 Td
+(- Forecast endpoint fetches 2 years of data, which may be slower depending on Yahoo Finance ) Tj
+0 -12 Td
+(availability and network speed.) Tj
+0 -12 Td
+(- No explicit response time target is documented.) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(### Security) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(- No authentication or authorization exists.) Tj
+0 -12 Td
+(- CORS is restricted to local frontend origins:) Tj
+0 -12 Td
+(  - `http://localhost:5173`) Tj
+0 -12 Td
+(  - `http://localhost:5174`) Tj
+0 -12 Td
+(  - `http://localhost:4173`) Tj
+0 -12 Td
+(- API accepts public ticker input and calls Yahoo Finance.) Tj
+0 -12 Td
+(- No secret keys or credentials are required.) Tj
+0 -12 Td
+(- No server-side user data is stored.) Tj
+0 -12 Td
+(- No rate limiting is implemented.) Tj
+0 -12 Td
+(- No input sanitization beyond basic trimming/uppercasing is implemented for stock symbols.) Tj
+0 -12 Td
+(- No HTTPS configuration is included in the project.) Tj
+0 -12 Td
+(- No CSRF protection is needed for the current stateless public GET endpoints, but it is ) Tj
+0 -12 Td
+(also not implemented.) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(### Usability) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(- Simple tab-based navigation.) Tj
+0 -12 Td
+(- Loading states are provided for forecasts and market data.) Tj
+0 -12 Td
+(- Error banners are provided for forecast failures.) Tj
+0 -12 Td
+(- Search suggestions assist ticker discovery.) Tj
+0 -12 Td
+(- Recent searches improve repeated access.) Tj
+0 -12 Td
+(- Chart placeholders explain what users should do before data exists.) Tj
+0 -12 Td
+(- Model status indicators tell users whether predictions use actual models or placeholders.) Tj
+0 -12 Td
+(- CSV export supports offline use.) Tj
+0 -12 Td
+(- Printable reports support documentation and presentation use.) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(### Reliability / Availability) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(- Backend continues running even when model files are missing.) Tj
+0 -12 Td
+(- Placeholder predictions are used when ARIMA or LSTM models are unavailable.) Tj
+0 -12 Td
+(- Forecast endpoint returns error objects instead of crashing for many failure cases.) Tj
+0 -12 Td
+(- Heavy model dependencies are imported lazily.) Tj
+0 -12 Td
+(- External dependency on Yahoo Finance may cause failures or inconsistent data availability.) Tj
+0 -12 Td
+(- No retry logic is implemented for Yahoo Finance failures.) Tj
+0 -12 Td
+(- No uptime or availability target is documented.) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(### Scalability) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(- Current implementation is intended for local/development use.) Tj
+0 -12 Td
+(- No database scaling concern exists because no database is used.) Tj
+0 -12 Td
+(- ML model inference runs inside the FastAPI process.) Tj
+0 -12 Td
+(- Yahoo Finance calls happen synchronously during API requests.) Tj
+0 -12 Td
+(- No job queue, caching layer, worker process, or distributed inference system is ) Tj
+ET
+endstream
+endobj
+24 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R >> >> /Contents 25 0 R >>
+endobj
+25 0 obj
+<< /Length 2654 >>
+stream
+BT
+/F1 9 Tf
+50 742 Td
+(implemented.) Tj
+0 -12 Td
+(- Concurrent heavy forecast requests may affect backend responsiveness.) Tj
+0 -12 Td
+(- No production deployment architecture is included.) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(### Maintainability) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(- Frontend is componentized by feature:) Tj
+0 -12 Td
+(  - Navbar) Tj
+0 -12 Td
+(  - Sidebar) Tj
+0 -12 Td
+(  - ForecastChart) Tj
+0 -12 Td
+(  - StockHeader) Tj
+0 -12 Td
+(  - EvaluationMetrics) Tj
+0 -12 Td
+(  - TechnicalIndicators) Tj
+0 -12 Td
+(  - MarketsView) Tj
+0 -12 Td
+(  - ReportsView) Tj
+0 -12 Td
+(  - PortfolioView) Tj
+0 -12 Td
+(- Backend is currently implemented in a single `main.py` file.) Tj
+0 -12 Td
+(- Backend may become harder to maintain as APIs, model logic, and indicator calculations ) Tj
+0 -12 Td
+(grow.) Tj
+0 -12 Td
+(- No automated tests are present in the repository.) Tj
+0 -12 Td
+(- No linting or formatting configuration is present.) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(### Compatibility) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(- Backend requires **Python 3.9+**.) Tj
+0 -12 Td
+(- Frontend uses modern React and Vite tooling.) Tj
+0 -12 Td
+(- Intended local frontend URL is `http://localhost:5173`.) Tj
+0 -12 Td
+(- Intended local backend URL is `http://localhost:8000`.) Tj
+0 -12 Td
+(- Frontend API base URL can be overridden using `VITE_API_URL`.) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(## Business Rules / Validation Rules ? e.g. field constraints, workflow rules, access ) Tj
+0 -12 Td
+(control rules) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(### Forecast Input Rules) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(- Stock symbol is required for forecast generation.) Tj
+0 -12 Td
+(- Blank or whitespace-only ticker input does not trigger forecast fetching.) Tj
+0 -12 Td
+(- Ticker input is trimmed before API call.) Tj
+0 -12 Td
+(- Ticker input is converted to uppercase in the UI.) Tj
+0 -12 Td
+(- Forecast days should be selected from:) Tj
+0 -12 Td
+(  - 7) Tj
+0 -12 Td
+(  - 14) Tj
+0 -12 Td
+(  - 17) Tj
+0 -12 Td
+(  - 30) Tj
+0 -12 Td
+(- Backend `days` parameter defaults to 17 if omitted.) Tj
+0 -12 Td
+(- Backend does not enforce a strict maximum for `days`, which is a test risk.) Tj
+0 -12 Td
+(- Backend does not explicitly reject zero or negative `days`, which is a test risk.) Tj
+0 -12 Td
+(- If Yahoo Finance returns no data for a symbol, backend returns:) Tj
+0 -12 Td
+(  - `{"error": "No data found for symbol '{symbol}'"}`) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(### Forecast Date Rules) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(- Future forecast dates are generated as business days only.) Tj
+0 -12 Td
+(- Saturday and Sunday are skipped.) Tj
+0 -12 Td
+(- Market holidays are not explicitly skipped.) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(### Model Rules) Tj
+ET
+endstream
+endobj
+26 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R >> >> /Contents 27 0 R >>
+endobj
+27 0 obj
+<< /Length 2810 >>
+stream
+BT
+/F1 9 Tf
+50 742 Td
+() Tj
+0 -12 Td
+(- ARIMA model expected path:) Tj
+0 -12 Td
+(  - `backend/models/arima_universal.pkl`) Tj
+0 -12 Td
+(- LSTM model expected path in code:) Tj
+0 -12 Td
+(  - `backend/models/lstm_stock_model.h5`) Tj
+0 -12 Td
+(- Some documentation also mentions:) Tj
+0 -12 Td
+(  - `backend/models/lstm_universal.h5`) Tj
+0 -12 Td
+(- If ARIMA model is missing, fails loading, or fails predicting, use placeholder ARIMA ) Tj
+0 -12 Td
+(predictions.) Tj
+0 -12 Td
+(- If LSTM model is missing, fails loading, has insufficient data, or fails predicting, use ) Tj
+0 -12 Td
+(placeholder LSTM predictions.) Tj
+0 -12 Td
+(- LSTM requires at least **60** historical close values for its prediction window.) Tj
+0 -12 Td
+(- LSTM backtest uses a sliding 60-day window.) Tj
+0 -12 Td
+(- Backtest display is limited to **90 days** where enough data exists.) Tj
+0 -12 Td
+(- Evaluation metrics are currently generated using random seeded placeholder ranges, not ) Tj
+0 -12 Td
+(true model validation metrics.) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(### Technical Indicator Rules) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(- RSI uses a default period of **14**.) Tj
+0 -12 Td
+(- RSI missing values are filled with **50**.) Tj
+0 -12 Td
+(- RSI overbought threshold is **70**.) Tj
+0 -12 Td
+(- RSI oversold threshold is **30**.) Tj
+0 -12 Td
+(- MACD uses:) Tj
+0 -12 Td
+(  - Fast EMA period: 12) Tj
+0 -12 Td
+(  - Slow EMA period: 26) Tj
+0 -12 Td
+(  - Signal EMA period: 9) Tj
+0 -12 Td
+(- Bollinger Bands use:) Tj
+0 -12 Td
+(  - Period: 20) Tj
+0 -12 Td
+(  - Standard deviation multiplier: 2.0) Tj
+0 -12 Td
+(- Bollinger missing initial values are backfilled.) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(### Report Recommendation Rules) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(- ARIMA signal:) Tj
+0 -12 Td
+(  - Bullish if final ARIMA forecast is more than 1% above latest close.) Tj
+0 -12 Td
+(  - Bearish if final ARIMA forecast is more than 1% below latest close.) Tj
+0 -12 Td
+(  - Neutral otherwise.) Tj
+0 -12 Td
+(- LSTM signal:) Tj
+0 -12 Td
+(  - Bullish if final LSTM forecast is more than 1% above latest close.) Tj
+0 -12 Td
+(  - Bearish if final LSTM forecast is more than 1% below latest close.) Tj
+0 -12 Td
+(  - Neutral otherwise.) Tj
+0 -12 Td
+(- RSI signal:) Tj
+0 -12 Td
+(  - Overbought if RSI >= 70.) Tj
+0 -12 Td
+(  - Oversold if RSI <= 30.) Tj
+0 -12 Td
+(  - Neutral otherwise.) Tj
+0 -12 Td
+(- MACD signal:) Tj
+0 -12 Td
+(  - Bullish if MACD minus signal > 0.05.) Tj
+0 -12 Td
+(  - Bearish if MACD minus signal < -0.05.) Tj
+0 -12 Td
+(  - Neutral otherwise.) Tj
+0 -12 Td
+(- Bollinger signal:) Tj
+0 -12 Td
+(  - Overbought if latest close >= upper band × 0.97.) Tj
+0 -12 Td
+(  - Oversold if latest close <= lower band × 1.03.) Tj
+0 -12 Td
+(  - Neutral otherwise.) Tj
+0 -12 Td
+(- Overall report score:) Tj
+0 -12 Td
+(  - ARIMA Bullish: +2) Tj
+0 -12 Td
+(  - ARIMA Bearish: -2) Tj
+ET
+endstream
+endobj
+28 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R >> >> /Contents 29 0 R >>
+endobj
+29 0 obj
+<< /Length 2333 >>
+stream
+BT
+/F1 9 Tf
+50 742 Td
+(  - LSTM Bullish: +2) Tj
+0 -12 Td
+(  - LSTM Bearish: -2) Tj
+0 -12 Td
+(  - RSI Oversold: +1) Tj
+0 -12 Td
+(  - RSI Overbought: -1) Tj
+0 -12 Td
+(  - MACD Bullish: +1) Tj
+0 -12 Td
+(  - MACD Bearish: -1) Tj
+0 -12 Td
+(  - Bollinger Oversold: +1) Tj
+0 -12 Td
+(  - Bollinger Overbought: -1) Tj
+0 -12 Td
+(- Final recommendation:) Tj
+0 -12 Td
+(  - Score >= 4: Strong Buy) Tj
+0 -12 Td
+(  - Score >= 1: Buy) Tj
+0 -12 Td
+(  - Score <= -4: Strong Sell) Tj
+0 -12 Td
+(  - Score <= -1: Sell) Tj
+0 -12 Td
+(  - Otherwise: Hold) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(### Market Overview Rules) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(- Market overview fixed symbols:) Tj
+0 -12 Td
+(  - SPY) Tj
+0 -12 Td
+(  - QQQ) Tj
+0 -12 Td
+(  - DIA) Tj
+0 -12 Td
+(  - AAPL) Tj
+0 -12 Td
+(  - TSLA) Tj
+0 -12 Td
+(  - NVDA) Tj
+0 -12 Td
+(  - MSFT) Tj
+0 -12 Td
+(  - GOOGL) Tj
+0 -12 Td
+(  - AMZN) Tj
+0 -12 Td
+(- Market overview uses the latest and previous close values to calculate change and ) Tj
+0 -12 Td
+(percentage change.) Tj
+0 -12 Td
+(- Symbols with insufficient data are skipped.) Tj
+0 -12 Td
+(- If Yahoo Finance market data is empty, backend returns:) Tj
+0 -12 Td
+(  - `{"error": "Failed to fetch market data"}`) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(### Search Rules) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(- Empty search query returns first 10 curated popular stocks.) Tj
+0 -12 Td
+(- Non-empty search query returns up to 8 matches.) Tj
+0 -12 Td
+(- Search matches against symbol or company name.) Tj
+0 -12 Td
+(- Search is case-insensitive.) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(### Portfolio Simulator Rules) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(- Applies only if the unused PortfolioView is integrated.) Tj
+0 -12 Td
+(- Starting cash is **$100,000.00**.) Tj
+0 -12 Td
+(- Symbol is required.) Tj
+0 -12 Td
+(- Shares must be a positive integer.) Tj
+0 -12 Td
+(- Price must be a positive number.) Tj
+0 -12 Td
+(- Buy transaction cannot exceed available cash.) Tj
+0 -12 Td
+(- Sell transaction cannot exceed owned shares.) Tj
+0 -12 Td
+(- Buying more of an existing holding recalculates average buy price.) Tj
+0 -12 Td
+(- Selling all shares removes the holding.) Tj
+0 -12 Td
+(- Portfolio reset asks for confirmation.) Tj
+0 -12 Td
+(- Portfolio data is persisted in localStorage only.) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(### Access Control Rules) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(- No access control rules are implemented.) Tj
+ET
+endstream
+endobj
+30 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R >> >> /Contents 31 0 R >>
+endobj
+31 0 obj
+<< /Length 2057 >>
+stream
+BT
+/F1 9 Tf
+50 742 Td
+(- All frontend views and backend endpoints are publicly accessible in the local app.) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(## System Architecture Summary ? frontend stack, backend stack, database, APIs, third-party ) Tj
+0 -12 Td
+(integrations) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(### Frontend) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(- Framework:) Tj
+0 -12 Td
+(  - React 18) Tj
+0 -12 Td
+(- Build tool:) Tj
+0 -12 Td
+(  - Vite 5) Tj
+0 -12 Td
+(- Language:) Tj
+0 -12 Td
+(  - JavaScript / JSX) Tj
+0 -12 Td
+(- Charting:) Tj
+0 -12 Td
+(  - Plotly.js) Tj
+0 -12 Td
+(  - react-plotly.js) Tj
+0 -12 Td
+(- HTTP client:) Tj
+0 -12 Td
+(  - Native `fetch`) Tj
+0 -12 Td
+(  - Axios is installed but not used in `api.js`) Tj
+0 -12 Td
+(- Styling:) Tj
+0 -12 Td
+(  - Inline React styles) Tj
+0 -12 Td
+(  - Shared color constants from `frontend/src/colors.js`) Tj
+0 -12 Td
+(- Main entry points:) Tj
+0 -12 Td
+(  - `frontend/src/main.jsx`) Tj
+0 -12 Td
+(  - `frontend/src/App.jsx`) Tj
+0 -12 Td
+(- Components:) Tj
+0 -12 Td
+(  - `Navbar.jsx`) Tj
+0 -12 Td
+(  - `Sidebar.jsx`) Tj
+0 -12 Td
+(  - `StockHeader.jsx`) Tj
+0 -12 Td
+(  - `ForecastChart.jsx`) Tj
+0 -12 Td
+(  - `EvaluationMetrics.jsx`) Tj
+0 -12 Td
+(  - `TechnicalIndicators.jsx`) Tj
+0 -12 Td
+(  - `MarketsView.jsx`) Tj
+0 -12 Td
+(  - `ReportsView.jsx`) Tj
+0 -12 Td
+(  - `PortfolioView.jsx`) Tj
+0 -12 Td
+(- Frontend API service:) Tj
+0 -12 Td
+(  - `frontend/src/services/api.js`) Tj
+0 -12 Td
+(- Frontend default URL:) Tj
+0 -12 Td
+(  - `http://localhost:5173`) Tj
+0 -12 Td
+(- Environment variable:) Tj
+0 -12 Td
+(  - `VITE_API_URL`) Tj
+0 -12 Td
+(- Default API base if environment variable is missing:) Tj
+0 -12 Td
+(  - `http://localhost:8000`) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(### Backend) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(- Framework:) Tj
+0 -12 Td
+(  - FastAPI) Tj
+0 -12 Td
+(- Language:) Tj
+0 -12 Td
+(  - Python 3.9+) Tj
+0 -12 Td
+(- Server:) Tj
+0 -12 Td
+(  - Uvicorn) Tj
+0 -12 Td
+(- Main file:) Tj
+0 -12 Td
+(  - `backend/main.py`) Tj
+0 -12 Td
+(- Backend default URL:) Tj
+0 -12 Td
+(  - `http://localhost:8000`) Tj
+0 -12 Td
+(- Interactive API docs:) Tj
+ET
+endstream
+endobj
+32 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R >> >> /Contents 33 0 R >>
+endobj
+33 0 obj
+<< /Length 2239 >>
+stream
+BT
+/F1 9 Tf
+50 742 Td
+(  - `http://localhost:8000/docs`) Tj
+0 -12 Td
+(- CORS:) Tj
+0 -12 Td
+(  - Enabled through FastAPI `CORSMiddleware`) Tj
+0 -12 Td
+(  - Allowed local origins:) Tj
+0 -12 Td
+(    - `http://localhost:5173`) Tj
+0 -12 Td
+(    - `http://localhost:5174`) Tj
+0 -12 Td
+(    - `http://localhost:4173`) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(### Backend Libraries) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(- `fastapi`) Tj
+0 -12 Td
+(- `uvicorn[standard]`) Tj
+0 -12 Td
+(- `yfinance`) Tj
+0 -12 Td
+(- `pandas`) Tj
+0 -12 Td
+(- `numpy`) Tj
+0 -12 Td
+(- `python-multipart`) Tj
+0 -12 Td
+(- `statsmodels`) Tj
+0 -12 Td
+(- `scikit-learn`) Tj
+0 -12 Td
+(- `tensorflow`) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(### Machine Learning / Forecasting) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(- ARIMA:) Tj
+0 -12 Td
+(  - Loaded from pickle file.) Tj
+0 -12 Td
+(  - Expected code path:) Tj
+0 -12 Td
+(    - `backend/models/arima_universal.pkl`) Tj
+0 -12 Td
+(  - Supports model objects exposing:) Tj
+0 -12 Td
+(    - `forecast\(steps=days\)`) Tj
+0 -12 Td
+(    - `predict\(n_periods=days\)`) Tj
+0 -12 Td
+(    - `predict\(days\)`) Tj
+0 -12 Td
+(- LSTM:) Tj
+0 -12 Td
+(  - Loaded using TensorFlow Keras.) Tj
+0 -12 Td
+(  - Expected code path:) Tj
+0 -12 Td
+(    - `backend/models/lstm_stock_model.h5`) Tj
+0 -12 Td
+(  - Uses MinMaxScaler.) Tj
+0 -12 Td
+(  - Uses last 60 days as input window.) Tj
+0 -12 Td
+(  - Performs iterative multi-step prediction.) Tj
+0 -12 Td
+(- Placeholder models:) Tj
+0 -12 Td
+(  - Used when actual model files are missing or fail.) Tj
+0 -12 Td
+(  - Placeholder ARIMA uses seeded random walk with seed 42.) Tj
+0 -12 Td
+(  - Placeholder LSTM uses seeded random walk with seed 7.) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(### Database) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(- No database is implemented.) Tj
+0 -12 Td
+(- No SQL, NoSQL, ORM, or migration tool exists.) Tj
+0 -12 Td
+(- Persistent frontend-only storage:) Tj
+0 -12 Td
+(  - Recent searches in localStorage.) Tj
+0 -12 Td
+(  - Portfolio simulator state in localStorage if integrated.) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(### APIs) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(- `GET /api/health`) Tj
+0 -12 Td
+(  - Returns API status and model readiness.) Tj
+0 -12 Td
+(- `GET /api/search?q=...`) Tj
+0 -12 Td
+(  - Searches curated stock list.) Tj
+0 -12 Td
+(- `GET /api/markets`) Tj
+ET
+endstream
+endobj
+34 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R >> >> /Contents 35 0 R >>
+endobj
+35 0 obj
+<< /Length 2416 >>
+stream
+BT
+/F1 9 Tf
+50 742 Td
+(  - Returns market overview for fixed list of symbols.) Tj
+0 -12 Td
+(- `GET /api/prices?symbols=AAPL,MSFT`) Tj
+0 -12 Td
+(  - Returns latest prices for requested tickers.) Tj
+0 -12 Td
+(- `GET /api/forecast?symbol=AAPL&days=17`) Tj
+0 -12 Td
+(  - Returns historical data, forecasts, indicators, backtest data, and evaluation metrics.) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(### Third-Party Integrations) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(- Yahoo Finance through the `yfinance` Python package.) Tj
+0 -12 Td
+(- TensorFlow/Keras for LSTM model loading.) Tj
+0 -12 Td
+(- scikit-learn for MinMaxScaler.) Tj
+0 -12 Td
+(- Plotly for interactive frontend charting.) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(### Deployment / Runtime) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(- Local development requires two terminals:) Tj
+0 -12 Td
+(  - Backend:) Tj
+0 -12 Td
+(    - `cd backend`) Tj
+0 -12 Td
+(    - `pip install -r requirements.txt`) Tj
+0 -12 Td
+(    - `uvicorn main:app --reload`) Tj
+0 -12 Td
+(  - Frontend:) Tj
+0 -12 Td
+(    - `cd frontend`) Tj
+0 -12 Td
+(    - `npm install`) Tj
+0 -12 Td
+(    - `npm run dev`) Tj
+0 -12 Td
+(- No Dockerfile exists.) Tj
+0 -12 Td
+(- No CI/CD pipeline exists.) Tj
+0 -12 Td
+(- No production deployment config exists.) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(## User Roles & Permissions ? what each role can/cannot do) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(### Anonymous End User) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(Can:) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(- Open the application.) Tj
+0 -12 Td
+(- Navigate between Dashboard, Markets, and Reports.) Tj
+0 -12 Td
+(- Search for stock tickers.) Tj
+0 -12 Td
+(- Select forecast horizon.) Tj
+0 -12 Td
+(- Generate stock forecasts.) Tj
+0 -12 Td
+(- View candlestick charts.) Tj
+0 -12 Td
+(- View ARIMA and LSTM predictions.) Tj
+0 -12 Td
+(- View technical indicators.) Tj
+0 -12 Td
+(- View model evaluation metrics.) Tj
+0 -12 Td
+(- View market overview.) Tj
+0 -12 Td
+(- Click a market symbol to generate a forecast.) Tj
+0 -12 Td
+(- Export forecast data to CSV.) Tj
+0 -12 Td
+(- Print reports.) Tj
+0 -12 Td
+(- Use browser-local recent search history.) Tj
+0 -12 Td
+(- Use portfolio simulator features only if PortfolioView is connected to the app.) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(Cannot:) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(- Log in, because authentication is not implemented.) Tj
+0 -12 Td
+(- Create an account.) Tj
+0 -12 Td
+(- Save server-side forecasts.) Tj
+0 -12 Td
+(- Save server-side reports.) Tj
+0 -12 Td
+(- Manage users.) Tj
+ET
+endstream
+endobj
+36 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R >> >> /Contents 37 0 R >>
+endobj
+37 0 obj
+<< /Length 2854 >>
+stream
+BT
+/F1 9 Tf
+50 742 Td
+(- Configure model files from the UI.) Tj
+0 -12 Td
+(- Upload model files.) Tj
+0 -12 Td
+(- Modify backend stock lists from the UI.) Tj
+0 -12 Td
+(- Access admin features, because none exist.) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(### Admin) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(- Not applicable.) Tj
+0 -12 Td
+(- No admin role exists.) Tj
+0 -12 Td
+(- No admin-specific permissions exist.) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(### Developer / Maintainer) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(Can by modifying source code or files:) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(- Start backend and frontend locally.) Tj
+0 -12 Td
+(- Add or replace model files in `backend/models`.) Tj
+0 -12 Td
+(- Change curated stock list in `backend/main.py`.) Tj
+0 -12 Td
+(- Modify CORS settings.) Tj
+0 -12 Td
+(- Modify technical indicator calculations.) Tj
+0 -12 Td
+(- Add tests, deployment, database, or authentication.) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(## Key User Workflows / Use Cases ? step-by-step for the top 5-8 core flows \(e.g. login, ) Tj
+0 -12 Td
+(submit form, generate report, admin approval, etc.\)) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(### 1. Generate a Stock Forecast from Dashboard) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(1. User opens the frontend at `http://localhost:5173`.) Tj
+0 -12 Td
+(2. App loads the Dashboard tab by default.) Tj
+0 -12 Td
+(3. Sidebar appears with default symbol `AAPL` and default forecast horizon `17`.) Tj
+0 -12 Td
+(4. Sidebar checks backend model health using `/api/health`.) Tj
+0 -12 Td
+(5. User enters a ticker symbol, for example `TSLA`.) Tj
+0 -12 Td
+(6. User selects forecast horizon:) Tj
+0 -12 Td
+(   - 7) Tj
+0 -12 Td
+(   - 14) Tj
+0 -12 Td
+(   - 17) Tj
+0 -12 Td
+(   - 30) Tj
+0 -12 Td
+(7. User clicks generate or presses Enter.) Tj
+0 -12 Td
+(8. Frontend calls `/api/forecast?symbol=TSLA&days={selectedDays}`.) Tj
+0 -12 Td
+(9. Backend downloads 2 years of Yahoo Finance data.) Tj
+0 -12 Td
+(10. Backend generates business-day forecast dates.) Tj
+0 -12 Td
+(11. Backend generates ARIMA predictions or placeholder ARIMA predictions.) Tj
+0 -12 Td
+(12. Backend generates LSTM predictions or placeholder LSTM predictions.) Tj
+0 -12 Td
+(13. Backend calculates technical indicators.) Tj
+0 -12 Td
+(14. Backend returns historical prices, OHLCV, forecasts, indicators, and metrics.) Tj
+0 -12 Td
+(15. Frontend stores result in state.) Tj
+0 -12 Td
+(16. Dashboard displays stock header, forecast chart, evaluation metrics, and technical ) Tj
+0 -12 Td
+(indicators.) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(### 2. Search and Select a Stock Suggestion) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(1. User focuses ticker input in the sidebar.) Tj
+0 -12 Td
+(2. User types at least one character.) Tj
+0 -12 Td
+(3. Input is converted to uppercase.) Tj
+0 -12 Td
+(4. Frontend waits 200 ms after input change.) Tj
+0 -12 Td
+(5. Frontend calls `/api/search?q={query}`.) Tj
+0 -12 Td
+(6. Backend searches curated popular stock list.) Tj
+ET
+endstream
+endobj
+38 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R >> >> /Contents 39 0 R >>
+endobj
+39 0 obj
+<< /Length 2858 >>
+stream
+BT
+/F1 9 Tf
+50 742 Td
+(7. Backend returns up to 8 matching stocks.) Tj
+0 -12 Td
+(8. Frontend displays suggestions.) Tj
+0 -12 Td
+(9. User clicks a suggestion.) Tj
+0 -12 Td
+(10. Frontend sets selected symbol.) Tj
+0 -12 Td
+(11. Symbol is saved to recent searches in localStorage.) Tj
+0 -12 Td
+(12. Suggestions are hidden.) Tj
+0 -12 Td
+(13. Forecast is automatically generated for the selected symbol.) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(### 3. View Market Overview and Forecast a Market Symbol) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(1. User clicks the Markets tab.) Tj
+0 -12 Td
+(2. Sidebar is hidden.) Tj
+0 -12 Td
+(3. MarketsView loads and calls `/api/markets`.) Tj
+0 -12 Td
+(4. Backend downloads 5 days of Yahoo Finance data for fixed symbols.) Tj
+0 -12 Td
+(5. Backend calculates current price, change, percentage change, high, and low.) Tj
+0 -12 Td
+(6. Frontend displays the market overview table.) Tj
+0 -12 Td
+(7. User clicks a market row or forecast action.) Tj
+0 -12 Td
+(8. App switches back to Dashboard.) Tj
+0 -12 Td
+(9. App sets the selected symbol.) Tj
+0 -12 Td
+(10. App generates a forecast for that symbol.) Tj
+0 -12 Td
+(11. Dashboard displays forecast results.) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(### 4. Analyze Model Evaluation Metrics) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(1. User generates a forecast.) Tj
+0 -12 Td
+(2. Backend returns ARIMA and LSTM evaluation objects.) Tj
+0 -12 Td
+(3. EvaluationMetrics component reads:) Tj
+0 -12 Td
+(   - MAE) Tj
+0 -12 Td
+(   - RMSE) Tj
+0 -12 Td
+(   - MAPE) Tj
+0 -12 Td
+(   - Source) Tj
+0 -12 Td
+(4. Component compares ARIMA MAE against LSTM MAE.) Tj
+0 -12 Td
+(5. Model with lower MAE is marked as the better model.) Tj
+0 -12 Td
+(6. User sees ARIMA and LSTM metric cards.) Tj
+0 -12 Td
+(7. User sees a verdict indicating which model performs better.) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(### 5. Toggle Technical Indicators) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(1. User generates a forecast.) Tj
+0 -12 Td
+(2. TechnicalIndicators component receives indicator data.) Tj
+0 -12 Td
+(3. Default active indicator is RSI.) Tj
+0 -12 Td
+(4. User toggles RSI, MACD, or Bollinger Bands.) Tj
+0 -12 Td
+(5. Component updates selected indicator state.) Tj
+0 -12 Td
+(6. Relevant Plotly chart traces are shown or hidden.) Tj
+0 -12 Td
+(7. User interprets overbought, oversold, bullish, bearish, or neutral signals.) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(### 6. Export Forecast Data to CSV) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(1. User generates a forecast.) Tj
+0 -12 Td
+(2. StockHeader receives forecast data.) Tj
+0 -12 Td
+(3. User clicks export.) Tj
+0 -12 Td
+(4. Frontend builds CSV rows for historical data.) Tj
+0 -12 Td
+(5. Frontend appends forecast rows.) Tj
+0 -12 Td
+(6. Frontend creates a CSV Blob.) Tj
+0 -12 Td
+(7. Browser downloads the file named:) Tj
+0 -12 Td
+(   - `{SYMBOL}_forecast_{YYYY-MM-DD}.csv`) Tj
+0 -12 Td
+(8. User can use the CSV in Excel, reports, or testing documentation.) Tj
+ET
+endstream
+endobj
+40 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R >> >> /Contents 41 0 R >>
+endobj
+41 0 obj
+<< /Length 3380 >>
+stream
+BT
+/F1 9 Tf
+50 742 Td
+() Tj
+0 -12 Td
+(### 7. Generate and Print a Report) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(1. User first generates a forecast on the Dashboard.) Tj
+0 -12 Td
+(2. User clicks the Reports tab.) Tj
+0 -12 Td
+(3. ReportsView receives current forecast data.) Tj
+0 -12 Td
+(4. Component calculates ARIMA, LSTM, RSI, MACD, and Bollinger signals.) Tj
+0 -12 Td
+(5. Component calculates total recommendation score.) Tj
+0 -12 Td
+(6. Component converts score into:) Tj
+0 -12 Td
+(   - Strong Buy) Tj
+0 -12 Td
+(   - Buy) Tj
+0 -12 Td
+(   - Hold) Tj
+0 -12 Td
+(   - Sell) Tj
+0 -12 Td
+(   - Strong Sell) Tj
+0 -12 Td
+(7. User reviews report summary.) Tj
+0 -12 Td
+(8. User clicks print.) Tj
+0 -12 Td
+(9. Browser print dialog opens through `window.print\(\)`.) Tj
+0 -12 Td
+(10. Print CSS hides navigation/sidebar/buttons and formats report output.) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(### 8. Portfolio Simulation Workflow, if Integrated) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(1. User opens PortfolioView, although it is currently not linked in the main navigation.) Tj
+0 -12 Td
+(2. Component loads cash, holdings, and transactions from localStorage.) Tj
+0 -12 Td
+(3. User enters symbol, shares, price, and transaction type.) Tj
+0 -12 Td
+(4. User submits buy or sell.) Tj
+0 -12 Td
+(5. Component validates symbol, shares, price, cash, and holdings.) Tj
+0 -12 Td
+(6. Component updates cash and holdings.) Tj
+0 -12 Td
+(7. Component records transaction history.) Tj
+0 -12 Td
+(8. Component saves updated state to localStorage.) Tj
+0 -12 Td
+(9. Component fetches live prices for holdings every 30 seconds.) Tj
+0 -12 Td
+(10. User can reset portfolio after confirmation.) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(## Known Constraints or Assumptions ? anything explicitly out of scope, environment ) Tj
+0 -12 Td
+(limitations, dependencies) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(- The system is designed primarily for local development.) Tj
+0 -12 Td
+(- Backend must run separately from frontend.) Tj
+0 -12 Td
+(- Backend default URL is `http://localhost:8000`.) Tj
+0 -12 Td
+(- Frontend default URL is `http://localhost:5173`.) Tj
+0 -12 Td
+(- Frontend uses `VITE_API_URL` if provided.) Tj
+0 -12 Td
+(- Yahoo Finance availability is required for real market and forecast data.) Tj
+0 -12 Td
+(- The app depends on external internet access for `yfinance`.) Tj
+0 -12 Td
+(- There is no database.) Tj
+0 -12 Td
+(- There is no authentication.) Tj
+0 -12 Td
+(- There is no admin role.) Tj
+0 -12 Td
+(- There is no server-side persistence of forecasts, reports, or users.) Tj
+0 -12 Td
+(- Portfolio simulator is present in code but not wired into `App.jsx` navigation.) Tj
+0 -12 Td
+(- Model files may be missing. The app handles this with placeholders.) Tj
+0 -12 Td
+(- Code expects LSTM file at `backend/models/lstm_stock_model.h5`.) Tj
+0 -12 Td
+(- Backend README mentions `lstm_universal.h5`, which conflicts with the code.) Tj
+0 -12 Td
+(- Root README mentions `backend/models/arima_universal.pkl` and ) Tj
+0 -12 Td
+(`backend/models/lstm_stock_model.h5`.) Tj
+0 -12 Td
+(- Current repository contains cached ARIMA files such as `arima_AAPL.pkl`, `arima_AMZN.pkl`,) Tj
+0 -12 Td
+( etc., but the backend code currently looks for `arima_universal.pkl`.) Tj
+0 -12 Td
+(- Forecast evaluation metrics are not true measured model performance. They are generated ) Tj
+0 -12 Td
+(from seeded random ranges.) Tj
+0 -12 Td
+(- ARIMA past predictions are placeholder-based.) Tj
+ET
+endstream
+endobj
+42 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R >> >> /Contents 43 0 R >>
+endobj
+43 0 obj
+<< /Length 2380 >>
+stream
+BT
+/F1 9 Tf
+50 742 Td
+(- Market holidays are not considered when generating forecast dates.) Tj
+0 -12 Td
+(- Weekends are skipped.) Tj
+0 -12 Td
+(- There are no automated tests in the project.) Tj
+0 -12 Td
+(- There is no testing framework configured for frontend or backend.) Tj
+0 -12 Td
+(- There is no Docker setup.) Tj
+0 -12 Td
+(- There is no CI/CD setup.) Tj
+0 -12 Td
+(- There is no production deployment configuration.) Tj
+0 -12 Td
+(- There is no explicit non-functional performance target.) Tj
+0 -12 Td
+(- There is no rate limiting.) Tj
+0 -12 Td
+(- Backend endpoints mostly return `{error: ...}` with HTTP 200 instead of using error HTTP ) Tj
+0 -12 Td
+(status codes.) Tj
+0 -12 Td
+(- Financial predictions are for demonstration and should not be treated as professional ) Tj
+0 -12 Td
+(investment advice.) Tj
+0 -12 Td
+(- The system does not guarantee model accuracy.) Tj
+0 -12 Td
+(- The curated stock search list is hardcoded and not dynamically synced with an exchange ) Tj
+0 -12 Td
+(listing.) Tj
+0 -12 Td
+(- Time range buttons in StockHeader update UI state but do not appear to filter the ) Tj
+0 -12 Td
+(displayed chart data.) Tj
+0 -12 Td
+(- Axios is installed but the API service uses native `fetch`.) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(## Data Entities ? main objects the system stores \(e.g. User, Order, Report\) and key fields ) Tj
+0 -12 Td
+(for each) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(### User) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(- Not implemented.) Tj
+0 -12 Td
+(- No user entity exists.) Tj
+0 -12 Td
+(- No user fields exist.) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(### Stock Search Suggestion) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(Stored in backend memory as part of `POPULAR_STOCKS`.) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(Key fields:) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(- `symbol`) Tj
+0 -12 Td
+(  - Example: `AAPL`) Tj
+0 -12 Td
+(- `name`) Tj
+0 -12 Td
+(  - Example: `Apple Inc.`) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(### Recent Search) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(Stored in browser `localStorage` under `sv_recent`.) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(Key fields:) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(- `symbol`) Tj
+0 -12 Td
+(  - Stock ticker searched or selected.) Tj
+0 -12 Td
+(- `timestamp`) Tj
+0 -12 Td
+(  - JavaScript timestamp from `Date.now\(\)`.) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(### Forecast Request) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(Not stored persistently. Sent as API query parameters.) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(Key fields:) Tj
+0 -12 Td
+() Tj
+ET
+endstream
+endobj
+44 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R >> >> /Contents 45 0 R >>
+endobj
+45 0 obj
+<< /Length 1897 >>
+stream
+BT
+/F1 9 Tf
+50 742 Td
+(- `symbol`) Tj
+0 -12 Td
+(  - Required stock ticker.) Tj
+0 -12 Td
+(- `days`) Tj
+0 -12 Td
+(  - Number of forecast business days.) Tj
+0 -12 Td
+(  - Default: 17.) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(### Forecast Response) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(Returned by `/api/forecast`.) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(Key fields:) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(- `symbol`) Tj
+0 -12 Td
+(  - Uppercase ticker symbol.) Tj
+0 -12 Td
+(- `dates`) Tj
+0 -12 Td
+(  - Historical date list.) Tj
+0 -12 Td
+(- `historical_prices`) Tj
+0 -12 Td
+(  - Historical close prices.) Tj
+0 -12 Td
+(- `opens`) Tj
+0 -12 Td
+(  - Historical open prices.) Tj
+0 -12 Td
+(- `highs`) Tj
+0 -12 Td
+(  - Historical high prices.) Tj
+0 -12 Td
+(- `lows`) Tj
+0 -12 Td
+(  - Historical low prices.) Tj
+0 -12 Td
+(- `volumes`) Tj
+0 -12 Td
+(  - Historical volume values.) Tj
+0 -12 Td
+(- `forecast_dates`) Tj
+0 -12 Td
+(  - Future business-day dates.) Tj
+0 -12 Td
+(- `arima_predictions`) Tj
+0 -12 Td
+(  - Future ARIMA forecast values.) Tj
+0 -12 Td
+(- `lstm_predictions`) Tj
+0 -12 Td
+(  - Future LSTM forecast values.) Tj
+0 -12 Td
+(- `arima_past_predictions`) Tj
+0 -12 Td
+(  - Past ARIMA prediction/backtest values.) Tj
+0 -12 Td
+(- `arima_past_dates`) Tj
+0 -12 Td
+(  - Dates for ARIMA past predictions.) Tj
+0 -12 Td
+(- `lstm_past_predictions`) Tj
+0 -12 Td
+(  - Past LSTM prediction/backtest values.) Tj
+0 -12 Td
+(- `lstm_past_dates`) Tj
+0 -12 Td
+(  - Dates for LSTM past predictions.) Tj
+0 -12 Td
+(- `evaluation`) Tj
+0 -12 Td
+(  - Model evaluation object.) Tj
+0 -12 Td
+(- `indicators`) Tj
+0 -12 Td
+(  - Technical indicators object.) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(### Evaluation) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(Nested inside forecast response.) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(Key fields:) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(- `arima`) Tj
+0 -12 Td
+(  - `mae`) Tj
+0 -12 Td
+(  - `rmse`) Tj
+0 -12 Td
+(  - `mape`) Tj
+0 -12 Td
+(  - `source`) Tj
+0 -12 Td
+(- `lstm`) Tj
+ET
+endstream
+endobj
+46 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R >> >> /Contents 47 0 R >>
+endobj
+47 0 obj
+<< /Length 1557 >>
+stream
+BT
+/F1 9 Tf
+50 742 Td
+(  - `mae`) Tj
+0 -12 Td
+(  - `rmse`) Tj
+0 -12 Td
+(  - `mape`) Tj
+0 -12 Td
+(  - `source`) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(### Technical Indicators) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(Nested inside forecast response.) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(Key fields:) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(- `rsi`) Tj
+0 -12 Td
+(- `macd`) Tj
+0 -12 Td
+(- `macd_signal`) Tj
+0 -12 Td
+(- `bollinger_upper`) Tj
+0 -12 Td
+(- `bollinger_lower`) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(### Market Overview Item) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(Returned by `/api/markets`.) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(Key fields:) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(- `symbol`) Tj
+0 -12 Td
+(- `name`) Tj
+0 -12 Td
+(- `price`) Tj
+0 -12 Td
+(- `change`) Tj
+0 -12 Td
+(- `change_percent`) Tj
+0 -12 Td
+(- `high`) Tj
+0 -12 Td
+(- `low`) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(### Price Lookup Response) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(Returned by `/api/prices`.) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(Structure:) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(- Object/dictionary where each key is a ticker symbol.) Tj
+0 -12 Td
+(- Each value is the latest close price.) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(Example fields:) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(- `AAPL: 123.45`) Tj
+0 -12 Td
+(- `MSFT: 456.78`) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(### Report) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(Not stored persistently. Computed in the frontend from forecast data.) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(Derived fields:) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(- `symbol`) Tj
+0 -12 Td
+(- `latestClose`) Tj
+0 -12 Td
+(- `arimaTarget`) Tj
+0 -12 Td
+(- `arimaChange`) Tj
+0 -12 Td
+(- `arimaSignal`) Tj
+0 -12 Td
+(- `lstmTarget`) Tj
+ET
+endstream
+endobj
+48 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R >> >> /Contents 49 0 R >>
+endobj
+49 0 obj
+<< /Length 1634 >>
+stream
+BT
+/F1 9 Tf
+50 742 Td
+(- `lstmChange`) Tj
+0 -12 Td
+(- `lstmSignal`) Tj
+0 -12 Td
+(- `latestRsi`) Tj
+0 -12 Td
+(- `rsiSignal`) Tj
+0 -12 Td
+(- `latestMacd`) Tj
+0 -12 Td
+(- `latestSignal`) Tj
+0 -12 Td
+(- `macdDiff`) Tj
+0 -12 Td
+(- `macdSignal`) Tj
+0 -12 Td
+(- `upperB`) Tj
+0 -12 Td
+(- `lowerB`) Tj
+0 -12 Td
+(- `bbSignal`) Tj
+0 -12 Td
+(- `score`) Tj
+0 -12 Td
+(- `rating`) Tj
+0 -12 Td
+(- `ratingColor`) Tj
+0 -12 Td
+(- `ratingText`) Tj
+0 -12 Td
+(- `needleAngle`) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(### Portfolio Holding) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(Stored in browser `localStorage` under `stockvision_holdings` if PortfolioView is used.) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(Key fields:) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(- `symbol`) Tj
+0 -12 Td
+(- `shares`) Tj
+0 -12 Td
+(- `buyPrice`) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(### Portfolio Transaction) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(Stored in browser `localStorage` under `stockvision_transactions` if PortfolioView is used.) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(Key fields:) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(- `id`) Tj
+0 -12 Td
+(- `symbol`) Tj
+0 -12 Td
+(- `shares`) Tj
+0 -12 Td
+(- `price`) Tj
+0 -12 Td
+(- `type`) Tj
+0 -12 Td
+(  - `BUY`) Tj
+0 -12 Td
+(  - `SELL`) Tj
+0 -12 Td
+(- `date`) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(### Portfolio Cash) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(Stored in browser `localStorage` under `stockvision_cash` if PortfolioView is used.) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(Key field:) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(- Cash balance as stringified number.) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(### Model Status) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(Returned by `/api/health`.) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(Key fields:) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(- `status`) Tj
+ET
+endstream
+endobj
+50 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R >> >> /Contents 51 0 R >>
+endobj
+51 0 obj
+<< /Length 3052 >>
+stream
+BT
+/F1 9 Tf
+50 742 Td
+(  - Overall API status.) Tj
+0 -12 Td
+(- `models.arima.status`) Tj
+0 -12 Td
+(  - `ready` or `placeholder`.) Tj
+0 -12 Td
+(- `models.arima.loaded`) Tj
+0 -12 Td
+(  - Boolean.) Tj
+0 -12 Td
+(- `models.arima.path`) Tj
+0 -12 Td
+(  - Model file path.) Tj
+0 -12 Td
+(- `models.arima.message`) Tj
+0 -12 Td
+(  - Human-readable status.) Tj
+0 -12 Td
+(- `models.lstm.status`) Tj
+0 -12 Td
+(  - `ready` or `placeholder`.) Tj
+0 -12 Td
+(- `models.lstm.loaded`) Tj
+0 -12 Td
+(  - Boolean.) Tj
+0 -12 Td
+(- `models.lstm.path`) Tj
+0 -12 Td
+(  - Model file path.) Tj
+0 -12 Td
+(- `models.lstm.message`) Tj
+0 -12 Td
+(  - Human-readable status.) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(========================================================================) Tj
+0 -12 Td
+([2026-07-16T15:28:03.545379300Z] USER) Tj
+0 -12 Td
+(------------------------------------------------------------------------) Tj
+0 -12 Td
+(You have 1 incomplete todo. Continue working, or update the todo tool.) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(========================================================================) Tj
+0 -12 Td
+([2026-07-16T15:28:22.927403300Z] ASSISTANT) Tj
+0 -12 Td
+(------------------------------------------------------------------------) Tj
+0 -12 Td
+(Todo updated. All project knowledge dump tasks are now marked completed.) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(========================================================================) Tj
+0 -12 Td
+([2026-07-16T15:39:51.550964100Z] USER) Tj
+0 -12 Td
+(------------------------------------------------------------------------) Tj
+0 -12 Td
+(? End users / retail investors) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(========================================================================) Tj
+0 -12 Td
+([2026-07-16T15:40:00.614980800Z] ASSISTANT) Tj
+0 -12 Td
+(------------------------------------------------------------------------) Tj
+0 -12 Td
+(**End users / retail investors** are the primary users of StockVision. They use the system ) Tj
+0 -12 Td
+(to search stock tickers, generate ARIMA/LSTM forecasts, view market trends and technical ) Tj
+0 -12 Td
+(indicators, compare prediction models, export forecast data, and read simplified ) Tj
+0 -12 Td
+(buy/hold/sell-style analysis reports.) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(========================================================================) Tj
+0 -12 Td
+([2026-07-16T15:40:00.616610300Z] USER) Tj
+0 -12 Td
+(------------------------------------------------------------------------) Tj
+0 -12 Td
+(? Use the dashboard to search tickers, view stock forecasts, compare ARIMA and LSTM ) Tj
+0 -12 Td
+(predictions, inspect indicators, and generate reports.) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(? Students / researchers) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(  ? Use the project to demonstrate software testing, AI model integration, financial data ) Tj
+0 -12 Td
+(visualization, and REST API usage.) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(? Financial analysts / testers) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(  ? Validate forecast outputs, indicators, model status, market data correctness, and report) Tj
+0 -12 Td
+( calculations.) Tj
+0 -12 Td
+() Tj
+ET
+endstream
+endobj
+52 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R >> >> /Contents 53 0 R >>
+endobj
+53 0 obj
+<< /Length 1986 >>
+stream
+BT
+/F1 9 Tf
+50 742 Td
+(? Developers) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(  ? Maintain the React frontend, FastAPI backend, ML model loading logic, and Yahoo Finance ) Tj
+0 -12 Td
+(API integration.) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(? No admin role is implemented) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(  ? There is no login, access control, account management, or admin panel in the current ) Tj
+0 -12 Td
+(project.) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(Functional Requirements ? list every feature/module the system has, grouped by module \(e.g. ) Tj
+0 -12 Td
+(Authentication, Dashboard, Data Input, Reporting, etc.\), each as a short bullet) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(1. Application Shell / Navigation) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(? Display a fixed top navigation bar with the StockVision logo.) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(? Display the product name StockVision.) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(? Display the tagline AI-Powered Forecasting.) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(? Show application version v1.3.) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(? Provide tab navigation for:) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(  ? Dashboard) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(  ? Markets) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(  ? Reports) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(? Highlight the currently active tab.) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(? Show the sidebar only on:) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(  ? Dashboard) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(  ? Reports) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(? Hide the sidebar on:) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(  ? Markets) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(2. Dashboard Module) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(? Show a welcome screen when no forecast has been generated.) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(? Allow users to enter a stock ticker symbol.) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(? Default ticker symbol is AAPL.) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(? Default forecast horizon is 17 days.) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(? Allow the user to generate a forecast manually.) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(? Display a loading overlay while data is being fetched.) Tj
+0 -12 Td
+() Tj
+ET
+endstream
+endobj
+54 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R >> >> /Contents 55 0 R >>
+endobj
+55 0 obj
+<< /Length 665 >>
+stream
+BT
+/F1 9 Tf
+50 742 Td
+(? Display error messages when forecast generation fails.) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(? Allow users to dismiss forecast error messages.) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(? After forecast data is returned, display:) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(  ? Stock header) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(  ? Historical and forecast chart) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(  ? Model evaluation metrics) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(  ? Technical indicators) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(3. Sidebar / Forecast Input Module) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(? Provide a ticker input field.) Tj
+0 -12 Td
+() Tj
+0 -12 Td
+(? Convert ticker input to uppercase.) Tj
+0 -12 Td
+() Tj
+ET
+endstream
+endobj
+xref
+0 56
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000295 00000 n 
+0000000365 00000 n 
+0000000491 00000 n 
+0000004024 00000 n 
+0000004150 00000 n 
+0000007730 00000 n 
+0000007856 00000 n 
+0000010605 00000 n 
+0000010733 00000 n 
+0000013185 00000 n 
+0000013313 00000 n 
+0000015715 00000 n 
+0000015843 00000 n 
+0000018285 00000 n 
+0000018413 00000 n 
+0000020930 00000 n 
+0000021058 00000 n 
+0000023802 00000 n 
+0000023930 00000 n 
+0000026484 00000 n 
+0000026612 00000 n 
+0000030175 00000 n 
+0000030303 00000 n 
+0000033010 00000 n 
+0000033138 00000 n 
+0000036001 00000 n 
+0000036129 00000 n 
+0000038515 00000 n 
+0000038643 00000 n 
+0000040753 00000 n 
+0000040881 00000 n 
+0000043173 00000 n 
+0000043301 00000 n 
+0000045770 00000 n 
+0000045898 00000 n 
+0000048805 00000 n 
+0000048933 00000 n 
+0000051844 00000 n 
+0000051972 00000 n 
+0000055405 00000 n 
+0000055533 00000 n 
+0000057966 00000 n 
+0000058094 00000 n 
+0000060044 00000 n 
+0000060172 00000 n 
+0000061782 00000 n 
+0000061910 00000 n 
+0000063597 00000 n 
+0000063725 00000 n 
+0000066830 00000 n 
+0000066958 00000 n 
+0000068997 00000 n 
+0000069125 00000 n 
+trailer
+<< /Size 56 /Root 1 0 R >>
+startxref
+69842
+%%EOF

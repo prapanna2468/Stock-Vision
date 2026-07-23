@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.env
+venv/
+.venv/
+
+# Model files — too large for git, share via Google Drive / S3 / DVC
+models/*.h5
+models/*.pt
+models/*.pth
+models/*.pb
+models/arima_cache/*.pkl
+
+# Keep the folder structure in git
+!models/.gitkeep
+!models/arima_cache/.gitkeep
+!models/README.md
