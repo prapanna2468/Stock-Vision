@@ -19,7 +19,7 @@ function MetricRow({ label, value, highlight }) {
           fontVariantNumeric: 'tabular-nums',
         }}
       >
-        {typeof value === 'number' ? value.toFixed(4) : value}
+        {typeof value === 'number' ? value.toFixed(4) : (value ?? 'N/A')}
       </span>
     </div>
   );

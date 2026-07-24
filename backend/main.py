@@ -20,13 +20,22 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 MODELS_DIR = os.path.join(BASE_DIR, "models")
 ARIMA_MODEL_PATH = os.path.join(MODELS_DIR, "arima_universal.pkl")
 LSTM_MODEL_PATH = os.path.join(MODELS_DIR, "lstm_stock_model.h5")
+FEATURE_SCALER_PATH = os.path.join(MODELS_DIR, "feature_scaler.pkl")
+TARGET_SCALER_PATH = os.path.join(MODELS_DIR, "target_scaler.pkl")
 
 os.makedirs(MODELS_DIR, exist_ok=True)
+
+# LSTM pipeline constants
+LSTM_WINDOW = 60         # lookback window the model expects
+LSTM_FEATURES = 16       # number of features the model expects
+LSTM_MIN_HISTORY = 110   # 60-day window + 50 days to warm up SMA50/indicators
 
 # ─── Optional heavy imports (only if model files exist) ──────────────────────
 # We import lazily so the server starts even without optional model dependencies.
 _arima_model = None  # loaded once and cached in memory
 _lstm_model = None  # loaded once and cached in memory
+_feature_scaler = None  # loaded once and cached in memory
+_target_scaler = None   # loaded once and cached in memory
 _arima_load_error = None
 _lstm_load_error = None
 _models_preloading = True  # True while background preloading is in progress
@@ -52,38 +61,54 @@ def _load_arima_model():
         return None
 
 def _load_lstm_model():
-    """Load the LSTM model from disk (once). Returns None if not available."""
-    global _lstm_model, _lstm_load_error
+    """Load the LSTM model + both scalers from disk (once). Returns None if unavailable."""
+    global _lstm_model, _feature_scaler, _target_scaler, _lstm_load_error
     if _lstm_model is not None:
         return _lstm_model
-    if not os.path.exists(LSTM_MODEL_PATH):
+
+    # All three files are required
+    missing = [p for p in (LSTM_MODEL_PATH, FEATURE_SCALER_PATH, TARGET_SCALER_PATH) if not os.path.exists(p)]
+    if missing:
         _lstm_load_error = None
-        log.warning("LSTM model not found at %s — using placeholder predictions.", LSTM_MODEL_PATH)
+        for p in missing:
+            log.warning("LSTM deployment file not found: %s", p)
+        log.warning("LSTM requires lstm_stock_model.h5, feature_scaler.pkl, and target_scaler.pkl — using placeholder predictions.")
         return None
     try:
         from tensorflow.keras.models import load_model  # type: ignore
         _lstm_model = load_model(LSTM_MODEL_PATH)
+        with open(FEATURE_SCALER_PATH, "rb") as f:
+            _feature_scaler = pickle.load(f)
+        with open(TARGET_SCALER_PATH, "rb") as f:
+            _target_scaler = pickle.load(f)
         _lstm_load_error = None
-        log.info("[OK] LSTM model loaded from %s", LSTM_MODEL_PATH)
+        log.info("[OK] LSTM model + feature_scaler + target_scaler loaded from %s", MODELS_DIR)
         return _lstm_model
     except Exception as exc:
         _lstm_load_error = str(exc)
-        log.error("Failed to load LSTM model: %s — using placeholder predictions.", exc)
+        log.error("Failed to load LSTM deployment files: %s — using placeholder predictions.", exc)
         return None
 
 
 def _arima_predict(symbol: str, closes: pd.Series, days: int):
     """
-    Run the universal ARIMA model.
-    Supports common saved ARIMA objects such as statsmodels results (`forecast`)
-    and pmdarima models (`predict(n_periods=...)`). Returns None if unavailable.
+    Run the universal ARIMA model on the given stock's data.
+
+    Uses model.apply() to transfer the learned ARIMA parameters to the
+    current stock's closing prices, then forecasts forward.  This ensures
+    the forecast continues from the stock's actual last price rather than
+    from the training data the model was originally fitted on.
     """
     model = _load_arima_model()
     if model is None:
         return None
 
     try:
-        if hasattr(model, "forecast"):
+        # Prefer apply() so the forecast starts from the current stock's data
+        if hasattr(model, "apply"):
+            applied = model.apply(closes.astype(float), refit=False)
+            preds = applied.forecast(steps=days)
+        elif hasattr(model, "forecast"):
             preds = model.forecast(steps=days)
         elif hasattr(model, "predict"):
             try:
@@ -100,81 +125,87 @@ def _arima_predict(symbol: str, closes: pd.Series, days: int):
         return None
 
 
-def _lstm_input_shape(model):
-    """Return (window, feature_count) expected by the loaded LSTM model."""
-    input_shape = getattr(model, "input_shape", None)
-    if not input_shape or len(input_shape) < 3:
-        return 60, 1
-    window = int(input_shape[1] or 60)
-    feature_count = int(input_shape[2] or 1)
-    return window, feature_count
+# ─── LSTM 16-feature pipeline ─────────────────────────────────────────────────
+# The LSTM model was trained on exactly these 16 features computed from OHLCV
+# data in this order.  The feature_scaler.pkl was fit on these columns during
+# training and MUST be used at inference time.
+LSTM_FEATURE_NAMES = [
+    "Open", "High", "Low", "Close", "Volume",
+    "SMA20", "SMA50", "EMA20", "EMA50",
+    "RSI14", "MACD", "MACD_Signal", "MACD_Histogram",
+    "Stoch_K", "BB_Width", "ATR14",
+]
 
 
-def _make_lstm_feature_frame(closes: pd.Series, feature_count: int) -> np.ndarray:
+def _build_lstm_features(ohlcv: pd.DataFrame) -> pd.DataFrame:
     """
-    Build deterministic price-derived features for LSTM models.
+    Compute the exact 16 features expected by the LSTM model from OHLCV data.
 
-    Column 0 is always close price, because the model output is treated as the
-    scaled next close. Additional columns are derived technical/price features
-    and are truncated/padded to match the saved model's expected feature count.
+    Parameters
+    ----------
+    ohlcv : DataFrame with columns Open, High, Low, Close, Volume
+            (must already be cleaned / NaN-free).
+
+    Returns
+    -------
+    DataFrame with 16 columns in the order given by LSTM_FEATURE_NAMES.
+    Early rows with NaN (from rolling warm-up) are included so the caller
+    can decide how many to drop.
     """
-    close = closes.astype(float).copy()
-    returns = close.pct_change().replace([np.inf, -np.inf], np.nan).fillna(0.0)
-    ma5 = close.rolling(5).mean().bfill().ffill()
-    ma10 = close.rolling(10).mean().bfill().ffill()
-    ma20 = close.rolling(20).mean().bfill().ffill()
-    ema12 = close.ewm(span=12, adjust=False).mean()
-    ema26 = close.ewm(span=26, adjust=False).mean()
-    macd = (ema12 - ema26).fillna(0.0)
-    macd_signal = macd.ewm(span=9, adjust=False).mean().fillna(0.0)
-    rsi = pd.Series(compute_rsi(close), index=close.index).astype(float)
-    boll_upper, boll_lower = compute_bollinger(close)
-    boll_upper = pd.Series(boll_upper, index=close.index).astype(float).bfill().ffill()
-    boll_lower = pd.Series(boll_lower, index=close.index).astype(float).bfill().ffill()
-    volatility = returns.rolling(10).std().fillna(0.0)
-    momentum = close.diff(5).fillna(0.0)
-    price_range = (boll_upper - boll_lower).fillna(0.0)
-    close_to_ma5 = (close - ma5).fillna(0.0)
-    close_to_ma20 = (close - ma20).fillna(0.0)
-    day_of_week = pd.Series(close.index.dayofweek, index=close.index).astype(float)
-    trend = pd.Series(np.arange(len(close), dtype=float), index=close.index)
+    o = ohlcv["Open"].astype(float)
+    h = ohlcv["High"].astype(float)
+    lo = ohlcv["Low"].astype(float)
+    c = ohlcv["Close"].astype(float)
+    v = ohlcv["Volume"].astype(float)
 
-    columns = [
-        close,
-        returns,
-        ma5,
-        ma10,
-        ma20,
-        ema12,
-        ema26,
-        macd,
-        macd_signal,
-        rsi,
-        boll_upper,
-        boll_lower,
-        volatility,
-        momentum,
-        close_to_ma5,
-        close_to_ma20,
-        price_range,
-        day_of_week,
-        trend,
-    ]
+    sma20 = c.rolling(20).mean()
+    sma50 = c.rolling(50).mean()
+    ema20 = c.ewm(span=20, adjust=False).mean()
+    ema50 = c.ewm(span=50, adjust=False).mean()
 
-    while len(columns) < feature_count:
-        columns.append(close)
+    # RSI-14 using ewm(com=13) smoothing (matches training)
+    delta = c.diff()
+    gain = delta.where(delta > 0, 0.0)
+    loss = -delta.where(delta < 0, 0.0)
+    avg_gain = gain.ewm(com=13, adjust=False).mean()
+    avg_loss = loss.ewm(com=13, adjust=False).mean()
+    rs = avg_gain / avg_loss
+    rsi14 = 100 - (100 / (1 + rs))
 
-    frame = pd.concat(columns[:feature_count], axis=1)
-    frame = frame.replace([np.inf, -np.inf], np.nan).bfill().ffill().fillna(0.0)
-    return frame.to_numpy(dtype=float)
+    # MACD: EMA12 - EMA26, signal is 9-period EMA of MACD
+    ema12 = c.ewm(span=12, adjust=False).mean()
+    ema26 = c.ewm(span=26, adjust=False).mean()
+    macd_line = ema12 - ema26
+    macd_signal = macd_line.ewm(span=9, adjust=False).mean()
+    macd_histogram = macd_line - macd_signal
 
+    # Stochastic %K (14-period)
+    low14 = lo.rolling(14).min()
+    high14 = h.rolling(14).max()
+    stoch_k = ((c - low14) / (high14 - low14)) * 100
 
-def _inverse_scaled_close(pred_scaled: float, scaler, feature_count: int) -> float:
-    """Inverse-transform a scaled close prediction using column 0 of the scaler."""
-    row = np.zeros((1, feature_count), dtype=float)
-    row[0, 0] = pred_scaled
-    price = scaler.inverse_transform(row)[0, 0]
-    return round(float(price), 4)
+    # Bollinger Band Width = 4 * std20 / SMA20
+    std20 = c.rolling(20).std()
+    bb_width = (4 * std20) / sma20
+
+    # ATR-14: 14-period EMA of True Range
+    prev_close = c.shift(1)
+    tr = pd.concat([
+        (h - lo),
+        (h - prev_close).abs(),
+        (lo - prev_close).abs(),
+    ], axis=1).max(axis=1)
+    atr14 = tr.ewm(span=14, adjust=False).mean()
+
+    features = pd.DataFrame({
+        "Open": o, "High": h, "Low": lo, "Close": c, "Volume": v,
+        "SMA20": sma20, "SMA50": sma50, "EMA20": ema20, "EMA50": ema50,
+        "RSI14": rsi14, "MACD": macd_line, "MACD_Signal": macd_signal,
+        "MACD_Histogram": macd_histogram, "Stoch_K": stoch_k,
+        "BB_Width": bb_width, "ATR14": atr14,
+    }, index=ohlcv.index)
+
+    return features
 
 
 def _backtest_metrics(closes: pd.Series, pred_dates: list, predictions: list, source: str):
@@ -222,51 +253,80 @@ def _backtest_metrics(closes: pd.Series, pred_dates: list, predictions: list, so
     }
 
 
-def _lstm_predict(closes: pd.Series, days: int):
+def _lstm_predict(ohlcv: pd.DataFrame, days: int):
     """
-    Run LSTM multi-step forecast using the universal model.
-    Returns a list of predicted prices, or None if model is unavailable.
+    Run LSTM multi-step forecast using the trained model + saved scalers.
+
+    For each step:
+      1. Build 16 features from OHLCV, take last 60 rows, scale with feature_scaler
+      2. Model predicts scaled percent-change
+      3. Inverse-transform with target_scaler to get real percent-change
+      4. Reconstruct price as: last_real_close * (1 + pct / 100)
+         (always anchored to the most recent REAL close, never a predicted one)
+
+    Returns (prices, pct_changes) or (None, None) if unavailable.
     """
     model = _load_lstm_model()
     if model is None:
-        return None
+        return None, None
 
     try:
-        from sklearn.preprocessing import MinMaxScaler  # type: ignore
+        features = _build_lstm_features(ohlcv)
+        clean = features.dropna()
 
-        window, feature_count = _lstm_input_shape(model)
-        features = _make_lstm_feature_frame(closes, feature_count)
-        scaler = MinMaxScaler()
-        scaled = scaler.fit_transform(features)
+        if len(clean) < LSTM_WINDOW:
+            log.warning(
+                "Not enough data after indicator warm-up for LSTM (%d < %d). "
+                "Need at least %d trading days of history.",
+                len(clean), LSTM_WINDOW, LSTM_MIN_HISTORY,
+            )
+            return None, None
 
-        if len(scaled) < window:
-            log.warning("Not enough data for LSTM window (%d < %d).", len(scaled), window)
-            return None
+        # Scale the last LSTM_WINDOW rows with the training-time scaler
+        window_data = clean.iloc[-LSTM_WINDOW:].values  # (60, 16)
+        scaled = _feature_scaler.transform(window_data)  # (60, 16)
+        current_input = scaled.reshape(1, LSTM_WINDOW, LSTM_FEATURES)
 
-        current_input = scaled[-window:].reshape(1, window, feature_count)
-        preds_scaled = []
+        last_real_close = float(ohlcv["Close"].iloc[-1])
+        pred_prices = []
+        pred_pcts = []
 
         for _ in range(days):
-            pred = float(model.predict(current_input, verbose=0)[0][0])
-            preds_scaled.append(pred)
-            next_row = current_input[0, -1, :].copy()
-            next_row[0] = pred
-            current_input = np.concatenate([current_input[:, 1:, :], next_row.reshape(1, 1, feature_count)], axis=1)
+            raw_out = float(model.predict(current_input, verbose=0)[0][0])
+            # Inverse-transform to get real percent-change
+            pct_change = float(_target_scaler.inverse_transform([[raw_out]])[0][0])
+            # Anchor to last REAL close
+            predicted_price = last_real_close * (1 + pct_change / 100)
+            pred_prices.append(round(predicted_price, 4))
+            pred_pcts.append(round(pct_change, 4))
 
-        return [_inverse_scaled_close(p, scaler, feature_count) for p in preds_scaled]
+            # Slide window: shift and append the new predicted row
+            next_row = current_input[0, -1, :].copy()
+            next_row[0] = raw_out  # approximate — keeps features from last real row
+            current_input = np.concatenate(
+                [current_input[:, 1:, :], next_row.reshape(1, 1, LSTM_FEATURES)],
+                axis=1,
+            )
+
+        return pred_prices, pred_pcts
     except Exception as exc:
         log.error("LSTM prediction failed: %s — using placeholder predictions.", exc)
-        return None
+        return None, None
 
 
 # ─── Backtest (past predictions) ─────────────────────────────────────────────
 BACKTEST_DAYS = 90  # how many historical days to show past-prediction lines for
 
 
-def _lstm_backtest(closes: pd.Series, n_days: int = BACKTEST_DAYS):
+def _lstm_backtest(ohlcv: pd.DataFrame, n_days: int = BACKTEST_DAYS):
     """
     Run the LSTM model on a sliding window over the last N historical days
     to produce a 'what the model predicted' line for each day.
+
+    Each prediction uses 60 rows of properly-scaled features and converts
+    the output percent-change back to a price using the *previous day's*
+    actual close as the anchor.
+
     Returns (dates_list, preds_list) or (None, None) if unavailable.
     """
     model = _load_lstm_model()
@@ -274,29 +334,35 @@ def _lstm_backtest(closes: pd.Series, n_days: int = BACKTEST_DAYS):
         return None, None
 
     try:
-        from sklearn.preprocessing import MinMaxScaler  # type: ignore
-        window, feature_count = _lstm_input_shape(model)
-        features = _make_lstm_feature_frame(closes, feature_count)
+        features = _build_lstm_features(ohlcv)
+        clean = features.dropna()
+        closes = ohlcv["Close"].astype(float)
 
-        # We need at least window + n_days data points
-        available = len(features) - window
+        # We need at least LSTM_WINDOW + n_days clean rows
+        available = len(clean) - LSTM_WINDOW
         if available < 1:
             return None, None
         n_days = min(n_days, available)
 
-        scaler = MinMaxScaler()
-        scaled = scaler.fit_transform(features)
+        all_scaled = _feature_scaler.transform(clean.values)
 
-        start_idx = len(scaled) - n_days
+        start_idx = len(all_scaled) - n_days
         backtest_preds = []
         backtest_dates = []
 
-        for i in range(start_idx, len(scaled)):
-            input_window = scaled[i - window : i].reshape(1, window, feature_count)
-            pred_scaled = float(model.predict(input_window, verbose=0)[0][0])
-            pred_price = _inverse_scaled_close(pred_scaled, scaler, feature_count)
-            backtest_preds.append(round(float(pred_price), 4))
-            backtest_dates.append(closes.index[i].strftime("%Y-%m-%d"))
+        for i in range(start_idx, len(all_scaled)):
+            input_window = all_scaled[i - LSTM_WINDOW : i].reshape(1, LSTM_WINDOW, LSTM_FEATURES)
+            raw_out = float(model.predict(input_window, verbose=0)[0][0])
+            pct_change = float(_target_scaler.inverse_transform([[raw_out]])[0][0])
+
+            # Anchor to the *actual* close of the day before the target
+            # clean.index[i-1] is the last day in the input window
+            anchor_date = clean.index[i - 1]
+            anchor_close = float(closes.loc[anchor_date])
+            pred_price = anchor_close * (1 + pct_change / 100)
+
+            backtest_preds.append(round(pred_price, 4))
+            backtest_dates.append(clean.index[i].strftime("%Y-%m-%d"))
 
         return backtest_dates, backtest_preds
     except Exception as exc:
@@ -304,14 +370,15 @@ def _lstm_backtest(closes: pd.Series, n_days: int = BACKTEST_DAYS):
         return None, None
 
 
-def _arima_backtest(closes: pd.Series, n_days: int = BACKTEST_DAYS):
+def _arima_backtest(closes: pd.Series, forecast_horizon: int = 5, n_days: int = BACKTEST_DAYS):
     """
-    Produce honest ARIMA past predictions using the saved model, not fake noise.
+    Honest multi-step ARIMA backtest using the saved model.
 
-    For statsmodels ARIMAResultsWrapper, apply the saved fitted parameters to
-    each historical window and forecast one step ahead. This is a fixed-parameter
-    walk-forward backtest. It can be inaccurate if the universal ARIMA model was
-    not trained for the selected ticker, but it is real model output.
+    At each historical point, predict ``forecast_horizon`` steps ahead and
+    record the final prediction.  Each plotted point therefore represents
+    what the model forecasted ``forecast_horizon`` days in advance — giving
+    a realistic picture of prediction accuracy rather than the near-perfect
+    1-step-ahead results that any I(1) ARIMA model trivially achieves.
     """
     model = _load_arima_model()
     if model is None:
@@ -322,18 +389,25 @@ def _arima_backtest(closes: pd.Series, n_days: int = BACKTEST_DAYS):
         return [], [], "unavailable:no_supported_backtest_api"
 
     try:
+        horizon = max(1, forecast_horizon)
         window = min(252, max(60, len(closes) - n_days))
-        start_idx = max(window, len(closes) - n_days)
+        # Start early enough so the backtest range still covers ~n_days points
+        start_idx = max(window, len(closes) - n_days - horizon + 1)
+        end_idx = len(closes) - horizon + 1  # exclusive
         preds = []
         dates = []
-        for i in range(start_idx, len(closes)):
+        for i in range(start_idx, end_idx):
             history = closes.iloc[max(0, i - window):i].astype(float)
             if len(history) < 10:
                 continue
             applied = model.apply(history, refit=False)
-            pred = applied.forecast(steps=1)
-            preds.append(round(float(np.asarray(pred)[0]), 4))
-            dates.append(closes.index[i].strftime("%Y-%m-%d"))
+            multi_pred = applied.forecast(steps=horizon)
+            # Record the prediction for the day that is `horizon` steps ahead
+            final_pred = float(np.asarray(multi_pred)[-1])
+            target_idx = i + horizon - 1
+            if target_idx < len(closes):
+                preds.append(round(final_pred, 4))
+                dates.append(closes.index[target_idx].strftime("%Y-%m-%d"))
         return dates, preds, "model"
     except Exception as exc:
         log.warning("ARIMA backtest failed (%s). No ARIMA past line will be drawn.", exc)
@@ -511,9 +585,9 @@ def search_stocks(q: str = Query("", description="Search query for stock symbol 
 def health_check():
     """Non-blocking health check — reads cached state, never triggers model loading."""
     arima_file_exists = os.path.exists(ARIMA_MODEL_PATH)
-    lstm_file_exists = os.path.exists(LSTM_MODEL_PATH)
+    lstm_file_exists = all(os.path.exists(p) for p in (LSTM_MODEL_PATH, FEATURE_SCALER_PATH, TARGET_SCALER_PATH))
     arima_loaded = _arima_model is not None
-    lstm_loaded = _lstm_model is not None
+    lstm_loaded = _lstm_model is not None and _feature_scaler is not None and _target_scaler is not None
 
     def _model_status(loaded, file_exists, preloading, load_error, name):
         if loaded:
@@ -687,6 +761,9 @@ def get_forecast(
         last_price = historical_prices[-1] if historical_prices else 100.0
         last_date = closes.index[-1]
 
+        # ── Build OHLCV DataFrame for LSTM pipeline ───────────────────────────
+        ohlcv = ticker[["Open", "High", "Low", "Close", "Volume"]].dropna()
+
         # ── Forecast dates (business days only) ──────────────────────────────
         forecast_dates = []
         current = last_date
@@ -705,16 +782,17 @@ def get_forecast(
             arima_source = "placeholder"
 
         # ── LSTM predictions ──────────────────────────────────────────────────
-        lstm_preds = _lstm_predict(closes, days)
+        lstm_preds, lstm_pct_changes = _lstm_predict(ohlcv, days)
         lstm_source = "model"
         if lstm_preds is None:
             lstm_preds = _placeholder_lstm(last_price, days)
+            lstm_pct_changes = None
             lstm_source = "placeholder"
 
         log.info("Forecast for %s — ARIMA: %s | LSTM: %s", symbol.upper(), arima_source, lstm_source)
 
         # ── Past predictions (backtest) ───────────────────────────────────────
-        lstm_bt_dates, lstm_bt_preds = _lstm_backtest(closes)
+        lstm_bt_dates, lstm_bt_preds = _lstm_backtest(ohlcv)
         lstm_bt_source = "model"
         if lstm_bt_dates is None:
             # Fallback: generate placeholder past LSTM predictions
@@ -726,25 +804,12 @@ def get_forecast(
             lstm_bt_dates = [d.strftime("%Y-%m-%d") for d in tail.index]
             lstm_bt_source = "placeholder"
 
-        arima_bt_dates, arima_bt_preds, arima_bt_source = _arima_backtest(closes)
+        arima_bt_dates, arima_bt_preds, arima_bt_source = _arima_backtest(closes, forecast_horizon=days)
 
-        # ── Evaluation metrics ────────────────────────────────────────────────
-        # When real models are used the ML team should provide real metrics.
-        # For now we compute a simple in-sample metric on training data tail.
-        rng = np.random.default_rng(seed=99)
+        # ── Evaluation metrics (computed from backtest predictions) ───────────
         evaluation = {
-            "arima": {
-                "mae": round(float(rng.uniform(1.5, 3.5)), 4),
-                "rmse": round(float(rng.uniform(2.0, 4.5)), 4),
-                "mape": round(float(rng.uniform(0.8, 2.0)), 4),
-                "source": arima_source,
-            },
-            "lstm": {
-                "mae": round(float(rng.uniform(0.9, 1.8)), 4),
-                "rmse": round(float(rng.uniform(1.2, 2.5)), 4),
-                "mape": round(float(rng.uniform(0.5, 1.2)), 4),
-                "source": lstm_source,
-            },
+            "arima": _backtest_metrics(closes, arima_bt_dates, arima_bt_preds, arima_bt_source),
+            "lstm": _backtest_metrics(closes, lstm_bt_dates, lstm_bt_preds, lstm_bt_source),
         }
 
         # ── Technical indicators ──────────────────────────────────────────────
@@ -770,6 +835,7 @@ def get_forecast(
             "forecast_dates": forecast_dates,
             "arima_predictions": arima_preds,
             "lstm_predictions": lstm_preds,
+            "lstm_pct_changes": lstm_pct_changes,
             "arima_past_predictions": arima_bt_preds,
             "arima_past_dates": arima_bt_dates,
             "lstm_past_predictions": lstm_bt_preds,
