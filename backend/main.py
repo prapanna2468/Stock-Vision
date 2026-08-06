@@ -508,6 +508,14 @@ def compute_bollinger(prices: pd.Series, period: int = 20, std_dev: float = 2.0)
     return upper.tolist(), lower.tolist()
 
 
+def compute_ma(prices: pd.Series):
+    """Compute SMA(20), SMA(50), and EMA(20) from a closing-price series."""
+    sma20 = prices.rolling(window=20).mean()
+    sma50 = prices.rolling(window=50).mean()
+    ema20 = prices.ewm(span=20, adjust=False).mean()
+    return sma20.tolist(), sma50.tolist(), ema20.tolist()
+
+
 # ─── Popular stocks for search suggestions ───────────────────────────────────
 POPULAR_STOCKS = [
     {"symbol": "AAPL", "name": "Apple Inc."},
@@ -861,7 +869,7 @@ def get_forecast(
         closes_series = pd.Series(historical_prices, index=closes.index)
         rsi = compute_rsi(closes_series)
         macd, macd_signal = compute_macd(closes_series)
-        boll_upper, boll_lower = compute_bollinger(closes_series)
+        sma20, sma50, ema20 = compute_ma(closes_series)
 
         # ── OHLCV for candlestick ─────────────────────────────────────────────
         opens = ticker["Open"].dropna().reindex(closes.index).fillna(closes).tolist()
@@ -896,8 +904,9 @@ def get_forecast(
                 "rsi": [None if pd.isna(v) else round(v, 4) for v in rsi],
                 "macd": [None if pd.isna(v) else round(v, 4) for v in macd],
                 "macd_signal": [None if pd.isna(v) else round(v, 4) for v in macd_signal],
-                "bollinger_upper": [None if pd.isna(v) else round(v, 4) for v in boll_upper],
-                "bollinger_lower": [None if pd.isna(v) else round(v, 4) for v in boll_lower],
+                "sma20": [None if pd.isna(v) else round(v, 4) for v in sma20],
+                "sma50": [None if pd.isna(v) else round(v, 4) for v in sma50],
+                "ema20": [None if pd.isna(v) else round(v, 4) for v in ema20],
             },
         }
     except Exception as e:

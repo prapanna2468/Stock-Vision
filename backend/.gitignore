@@ -7,7 +7,7 @@ venv/
 .venv/
 
 # Model files — too large for git, share via Google Drive / S3 / DVC
-models/*.h5
+# models/*.h5  -- unignored lstm_stock_model.h5 (554KB)
 models/*.pt
 models/*.pth
 models/*.pb

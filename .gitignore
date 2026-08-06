@@ -17,7 +17,7 @@ venv/
 .venv/
 
 # Large Model Files
-backend/models/*.h5
+# backend/models/*.h5  -- unignored lstm_stock_model.h5 (554KB)
 backend/models/*.pt
 backend/models/*.pth
 backend/models/*.pb
