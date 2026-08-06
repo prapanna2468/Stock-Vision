@@ -10,6 +10,7 @@ from datetime import datetime, timedelta
 import os
 import pickle
 import logging
+from sklearn.preprocessing import MinMaxScaler
 
 # ─── Logging ────────────────────────────────────────────────────────────────
 logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
@@ -20,7 +21,6 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 MODELS_DIR = os.path.join(BASE_DIR, "models")
 ARIMA_MODEL_PATH = os.path.join(MODELS_DIR, "arima_universal.pkl")
 LSTM_MODEL_PATH = os.path.join(MODELS_DIR, "lstm_stock_model.h5")
-FEATURE_SCALER_PATH = os.path.join(MODELS_DIR, "feature_scaler.pkl")
 TARGET_SCALER_PATH = os.path.join(MODELS_DIR, "target_scaler.pkl")
 
 os.makedirs(MODELS_DIR, exist_ok=True)
@@ -34,7 +34,6 @@ LSTM_MIN_HISTORY = 110   # 60-day window + 50 days to warm up SMA50/indicators
 # We import lazily so the server starts even without optional model dependencies.
 _arima_model = None  # loaded once and cached in memory
 _lstm_model = None  # loaded once and cached in memory
-_feature_scaler = None  # loaded once and cached in memory
 _target_scaler = None   # loaded once and cached in memory
 _arima_load_error = None
 _lstm_load_error = None
@@ -61,28 +60,31 @@ def _load_arima_model():
         return None
 
 def _load_lstm_model():
-    """Load the LSTM model + both scalers from disk (once). Returns None if unavailable."""
-    global _lstm_model, _feature_scaler, _target_scaler, _lstm_load_error
+    """Load the LSTM model + target scaler from disk (once). Returns None if unavailable.
+
+    Note: feature_scaler.pkl is NO LONGER required.  Per-stock MinMaxScalers
+    are fitted dynamically at inference time (see _fit_stock_scaler), which
+    eliminates the global-scaler mismatch that caused ~24% prediction bias.
+    """
+    global _lstm_model, _target_scaler, _lstm_load_error
     if _lstm_model is not None:
         return _lstm_model
 
-    # All three files are required
-    missing = [p for p in (LSTM_MODEL_PATH, FEATURE_SCALER_PATH, TARGET_SCALER_PATH) if not os.path.exists(p)]
+    # Only the model and target scaler are required now
+    missing = [p for p in (LSTM_MODEL_PATH, TARGET_SCALER_PATH) if not os.path.exists(p)]
     if missing:
         _lstm_load_error = None
         for p in missing:
             log.warning("LSTM deployment file not found: %s", p)
-        log.warning("LSTM requires lstm_stock_model.h5, feature_scaler.pkl, and target_scaler.pkl — using placeholder predictions.")
+        log.warning("LSTM requires lstm_stock_model.h5 and target_scaler.pkl — using placeholder predictions.")
         return None
     try:
         from tensorflow.keras.models import load_model  # type: ignore
         _lstm_model = load_model(LSTM_MODEL_PATH)
-        with open(FEATURE_SCALER_PATH, "rb") as f:
-            _feature_scaler = pickle.load(f)
         with open(TARGET_SCALER_PATH, "rb") as f:
             _target_scaler = pickle.load(f)
         _lstm_load_error = None
-        log.info("[OK] LSTM model + feature_scaler + target_scaler loaded from %s", MODELS_DIR)
+        log.info("[OK] LSTM model + target_scaler loaded from %s", MODELS_DIR)
         return _lstm_model
     except Exception as exc:
         _lstm_load_error = str(exc)
@@ -127,8 +129,8 @@ def _arima_predict(symbol: str, closes: pd.Series, days: int):
 
 # ─── LSTM 16-feature pipeline ─────────────────────────────────────────────────
 # The LSTM model was trained on exactly these 16 features computed from OHLCV
-# data in this order.  The feature_scaler.pkl was fit on these columns during
-# training and MUST be used at inference time.
+# data in this order.  A per-stock MinMaxScaler is fitted at inference time
+# to normalise these features into [0, 1] for the current stock.
 LSTM_FEATURE_NAMES = [
     "Open", "High", "Low", "Close", "Volume",
     "SMA20", "SMA50", "EMA20", "EMA50",
@@ -152,11 +154,11 @@ def _build_lstm_features(ohlcv: pd.DataFrame) -> pd.DataFrame:
     Early rows with NaN (from rolling warm-up) are included so the caller
     can decide how many to drop.
     """
-    o = ohlcv["Open"].astype(float)
-    h = ohlcv["High"].astype(float)
-    lo = ohlcv["Low"].astype(float)
-    c = ohlcv["Close"].astype(float)
-    v = ohlcv["Volume"].astype(float)
+    o = ohlcv["Open"].squeeze().astype(float)
+    h = ohlcv["High"].squeeze().astype(float)
+    lo = ohlcv["Low"].squeeze().astype(float)
+    c = ohlcv["Close"].squeeze().astype(float)
+    v = ohlcv["Volume"].squeeze().astype(float)
 
     sma20 = c.rolling(20).mean()
     sma50 = c.rolling(50).mean()
@@ -253,15 +255,39 @@ def _backtest_metrics(closes: pd.Series, pred_dates: list, predictions: list, so
     }
 
 
+def _fit_stock_scaler(feature_values: np.ndarray) -> MinMaxScaler:
+    """
+    Fit a fresh MinMaxScaler on the stock's own feature data.
+
+    This replaces the global feature_scaler.pkl which was fitted on a
+    high-magnitude index (DJI ~$18k–$36k).  Passing individual stock prices
+    (~$200) into that scaler produces scaled values around -1.0, which pushes
+    the LSTM far outside its trained distribution and causes a systematic
+    ~24% downward bias in every prediction.
+
+    Fitting per-stock ensures the window always lands in [0, 1] regardless
+    of the stock's absolute price level.
+    """
+    scaler = MinMaxScaler(feature_range=(0, 1))
+    scaler.fit(feature_values)
+    return scaler
+
+
 def _lstm_predict(ohlcv: pd.DataFrame, days: int):
     """
     Run LSTM multi-step forecast using the trained model + saved scalers.
 
+    Feature scaling fix: instead of the global feature_scaler.pkl (fitted on
+    a high-price index), we fit a fresh MinMaxScaler on the current stock's
+    own feature data.  This prevents the out-of-distribution negative scaled
+    values that caused a systematic ~24% downward bias.
+
     For each step:
-      1. Build 16 features from OHLCV, take last 60 rows, scale with feature_scaler
-      2. Model predicts scaled percent-change
-      3. Inverse-transform with target_scaler to get real percent-change
-      4. Reconstruct price as: last_real_close * (1 + pct / 100)
+      1. Build 16 features from OHLCV, fit a per-stock MinMaxScaler
+      2. Take last 60 rows, scale with the stock-specific scaler
+      3. Model predicts scaled percent-change
+      4. Inverse-transform with target_scaler to get real percent-change
+      5. Reconstruct price as: last_real_close * (1 + pct / 100)
          (always anchored to the most recent REAL close, never a predicted one)
 
     Returns (prices, pct_changes) or (None, None) if unavailable.
@@ -282,18 +308,28 @@ def _lstm_predict(ohlcv: pd.DataFrame, days: int):
             )
             return None, None
 
-        # Scale the last LSTM_WINDOW rows with the training-time scaler
+        # ── Per-stock feature scaler (fixes the ~24% downward bias) ──────────
+        # Fit on all available clean data so the scaler captures the full
+        # price range of this specific stock rather than an unrelated index.
+        stock_scaler = _fit_stock_scaler(clean.values)
+        log.info(
+            "Per-stock scaler fitted: Close range [%.2f, %.2f] → scaled to [0, 1]",
+            clean["Close"].min(), clean["Close"].max(),
+        )
+
+        # Scale the last LSTM_WINDOW rows with the stock-specific scaler
         window_data = clean.iloc[-LSTM_WINDOW:].values  # (60, 16)
-        scaled = _feature_scaler.transform(window_data)  # (60, 16)
+        scaled = stock_scaler.transform(window_data)     # (60, 16), values in [0, 1]
         current_input = scaled.reshape(1, LSTM_WINDOW, LSTM_FEATURES)
 
-        last_real_close = float(ohlcv["Close"].iloc[-1])
+        last_real_close = float(np.asarray(ohlcv["Close"]).flatten()[-1])
         pred_prices = []
         pred_pcts = []
 
         for _ in range(days):
             raw_out = float(model.predict(current_input, verbose=0)[0][0])
             # Inverse-transform to get real percent-change
+            # target_scaler maps model output → daily % change (scale-agnostic)
             pct_change = float(_target_scaler.inverse_transform([[raw_out]])[0][0])
             # Anchor to last REAL close
             predicted_price = last_real_close * (1 + pct_change / 100)
@@ -323,6 +359,11 @@ def _lstm_backtest(ohlcv: pd.DataFrame, n_days: int = BACKTEST_DAYS):
     Run the LSTM model on a sliding window over the last N historical days
     to produce a 'what the model predicted' line for each day.
 
+    Feature scaling fix: fits a fresh per-stock MinMaxScaler on the full
+    clean feature set before scaling the sliding windows.  This replaces
+    the global feature_scaler.pkl (fitted on a high-price index) which caused
+    a systematic ~24% downward bias for individual stocks.
+
     Each prediction uses 60 rows of properly-scaled features and converts
     the output percent-change back to a price using the *previous day's*
     actual close as the anchor.
@@ -336,7 +377,7 @@ def _lstm_backtest(ohlcv: pd.DataFrame, n_days: int = BACKTEST_DAYS):
     try:
         features = _build_lstm_features(ohlcv)
         clean = features.dropna()
-        closes = ohlcv["Close"].astype(float)
+        closes = pd.Series(np.asarray(ohlcv["Close"]).flatten(), index=ohlcv.index)
 
         # We need at least LSTM_WINDOW + n_days clean rows
         available = len(clean) - LSTM_WINDOW
@@ -344,7 +385,11 @@ def _lstm_backtest(ohlcv: pd.DataFrame, n_days: int = BACKTEST_DAYS):
             return None, None
         n_days = min(n_days, available)
 
-        all_scaled = _feature_scaler.transform(clean.values)
+        # ── Per-stock feature scaler (fixes the ~24% downward bias) ──────────
+        # Fit on the *full* clean feature set so every sliding window is
+        # normalised relative to this stock's own price range.
+        stock_scaler = _fit_stock_scaler(clean.values)
+        all_scaled = stock_scaler.transform(clean.values)
 
         start_idx = len(all_scaled) - n_days
         backtest_preds = []
@@ -358,7 +403,7 @@ def _lstm_backtest(ohlcv: pd.DataFrame, n_days: int = BACKTEST_DAYS):
             # Anchor to the *actual* close of the day before the target
             # clean.index[i-1] is the last day in the input window
             anchor_date = clean.index[i - 1]
-            anchor_close = float(closes.loc[anchor_date])
+            anchor_close = float(np.asarray(closes.loc[anchor_date]).flatten()[0])
             pred_price = anchor_close * (1 + pct_change / 100)
 
             backtest_preds.append(round(pred_price, 4))
@@ -585,9 +630,9 @@ def search_stocks(q: str = Query("", description="Search query for stock symbol 
 def health_check():
     """Non-blocking health check — reads cached state, never triggers model loading."""
     arima_file_exists = os.path.exists(ARIMA_MODEL_PATH)
-    lstm_file_exists = all(os.path.exists(p) for p in (LSTM_MODEL_PATH, FEATURE_SCALER_PATH, TARGET_SCALER_PATH))
+    lstm_file_exists = all(os.path.exists(p) for p in (LSTM_MODEL_PATH, TARGET_SCALER_PATH))
     arima_loaded = _arima_model is not None
-    lstm_loaded = _lstm_model is not None and _feature_scaler is not None and _target_scaler is not None
+    lstm_loaded = _lstm_model is not None and _target_scaler is not None
 
     def _model_status(loaded, file_exists, preloading, load_error, name):
         if loaded:
