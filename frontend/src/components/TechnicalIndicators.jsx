@@ -5,7 +5,7 @@ import C from '../colors';
 const TOGGLES = [
   { key: 'rsi', label: 'RSI', color: C.purple },
   { key: 'macd', label: 'MACD', color: C.teal },
-  { key: 'bollinger', label: 'Bollinger Bands', color: C.grey },
+  { key: 'ma', label: 'Moving Averages', color: C.blue },
 ];
 
 // Strip nulls/NaN while keeping date-alignment
@@ -43,7 +43,7 @@ export default function TechnicalIndicators({ data }) {
   }
 
   const { dates = [], indicators = {}, historical_prices: closes = [] } = data;
-  const { rsi = [], macd = [], macd_signal = [], bollinger_upper = [], bollinger_lower = [] } = indicators;
+  const { rsi = [], macd = [], macd_signal = [], sma20 = [], sma50 = [], ema20 = [] } = indicators;
 
   const toggleIndicator = (key) => {
     setActiveIndicators((prev) =>
@@ -53,7 +53,7 @@ export default function TechnicalIndicators({ data }) {
 
   const showRsi = activeIndicators.includes('rsi');
   const showMacd = activeIndicators.includes('macd');
-  const showBollinger = activeIndicators.includes('bollinger');
+  const showMa = activeIndicators.includes('ma');
 
   // -- RSI CHART --
   const rsiClean = cleanPairs(dates, rsi);
@@ -199,28 +199,32 @@ export default function TechnicalIndicators({ data }) {
     },
   };
 
-  // -- Bollinger Bands CHART --
-  const upperClean = cleanPairs(dates, bollinger_upper);
-  const lowerClean = cleanPairs(dates, bollinger_lower);
+  // -- MOVING AVERAGES CHART --
   const closesClean = cleanPairs(dates, closes);
+  const sma20Clean = cleanPairs(dates, sma20);
+  const sma50Clean = cleanPairs(dates, sma50);
+  const ema20Clean = cleanPairs(dates, ema20);
 
-  const bollingerTraces = [
-    {
-      type: 'scatter', mode: 'lines', x: upperClean.dates, y: upperClean.values,
-      name: 'Upper Band', line: { color: `${C.grey}88`, width: 1, dash: 'dot' },
-    },
+  const maTraces = [
     {
       type: 'scatter', mode: 'lines', x: closesClean.dates, y: closesClean.values,
       name: 'Price', line: { color: C.white, width: 1.5 },
     },
     {
-      type: 'scatter', mode: 'lines', x: lowerClean.dates, y: lowerClean.values,
-      name: 'Lower Band', line: { color: `${C.grey}88`, width: 1, dash: 'dot' },
-      fill: 'tonexty', fillcolor: `${C.grey}11`,
+      type: 'scatter', mode: 'lines', x: sma20Clean.dates, y: sma20Clean.values,
+      name: 'SMA 20', line: { color: C.blue, width: 1.5 },
+    },
+    {
+      type: 'scatter', mode: 'lines', x: sma50Clean.dates, y: sma50Clean.values,
+      name: 'SMA 50', line: { color: C.orange, width: 1.5 },
+    },
+    {
+      type: 'scatter', mode: 'lines', x: ema20Clean.dates, y: ema20Clean.values,
+      name: 'EMA 20', line: { color: C.green, width: 1.5, dash: 'dot' },
     },
   ];
 
-  const bollingerLayout = {
+  const maLayout = {
     autosize: true,
     paper_bgcolor: C.secondary,
     plot_bgcolor: C.secondary,
@@ -275,7 +279,7 @@ export default function TechnicalIndicators({ data }) {
       >
         <div>
           <div style={{ color: C.white, fontSize: 15, fontWeight: 600 }}>Technical Indicators</div>
-          <div style={{ color: C.grey, fontSize: 11, marginTop: 2 }}>Momentum, trend, and volatility analysis</div>
+          <div style={{ color: C.grey, fontSize: 11, marginTop: 2 }}>Momentum, trend, and moving average analysis</div>
         </div>
         <div style={{ display: 'flex', gap: 6 }}>
           {TOGGLES.map(({ key, label, color }) => {
@@ -351,7 +355,7 @@ export default function TechnicalIndicators({ data }) {
           </div>
         )}
 
-        {showBollinger && (
+        {showMa && (
           <div
             style={{
               background: C.secondary,
@@ -360,12 +364,12 @@ export default function TechnicalIndicators({ data }) {
               overflow: 'hidden',
             }}
           >
-            <div style={{ color: C.grey, fontSize: 11, fontWeight: 600, padding: '8px 12px 0' }}>
-              Bollinger Bands (20, 2σ)
+            <div style={{ color: C.blue, fontSize: 11, fontWeight: 600, padding: '8px 12px 0' }}>
+              Moving Averages (SMA 20, SMA 50, EMA 20)
             </div>
             <Plot
-              data={bollingerTraces}
-              layout={bollingerLayout}
+              data={maTraces}
+              layout={maLayout}
               config={plotConfig}
               style={{ width: '100%' }}
               useResizeHandler

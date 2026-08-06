@@ -51,11 +51,12 @@ export default function ReportsView({ currentStockData, activeSymbol }) {
   const macdDiff = latestMacd - latestSignal;
   const macdSignal = macdDiff > 0.05 ? 'Bullish' : macdDiff < -0.05 ? 'Bearish' : 'Neutral';
 
-  const upperB = data.indicators.bollinger_upper[data.indicators.bollinger_upper.length - 1];
-  const lowerB = data.indicators.bollinger_lower[data.indicators.bollinger_lower.length - 1];
-  let bbSignal = 'Neutral';
-  if (latestClose >= upperB * 0.97) bbSignal = 'Overbought';
-  else if (latestClose <= lowerB * 1.03) bbSignal = 'Oversold';
+  // Moving Average crossover signal: price above SMA50 = Bullish, below = Bearish
+  const latestSma20 = data.indicators.sma20[data.indicators.sma20.length - 1];
+  const latestSma50 = data.indicators.sma50[data.indicators.sma50.length - 1];
+  let maSignal = 'Neutral';
+  if (latestClose > latestSma50 && latestSma20 > latestSma50) maSignal = 'Bullish';
+  else if (latestClose < latestSma50 && latestSma20 < latestSma50) maSignal = 'Bearish';
 
   // Score Calculations
   let score = 0;
@@ -67,8 +68,8 @@ export default function ReportsView({ currentStockData, activeSymbol }) {
   if (rsiSignal === 'Overbought') score -= 1;
   if (macdSignal === 'Bullish') score += 1;
   if (macdSignal === 'Bearish') score -= 1;
-  if (bbSignal === 'Oversold') score += 1;
-  if (bbSignal === 'Overbought') score -= 1;
+  if (maSignal === 'Bullish') score += 1;
+  if (maSignal === 'Bearish') score -= 1;
 
   let rating = 'Hold';
   let ratingColor = C.orange;
@@ -275,8 +276,8 @@ export default function ReportsView({ currentStockData, activeSymbol }) {
             >
               Technically, the Relative Strength Index (RSI) registers at <strong>{latestRsi.toFixed(1)}</strong>,
               signaling <strong>{rsiSignal || 'Neutral'}</strong> conditions. The MACD momentum oscillator
-              is currently indicating a <strong>{macdSignal}</strong> signal, while the stock is trading in a{' '}
-              <strong>{bbSignal}</strong> zone relative to its Bollinger Bands boundaries.
+              is currently indicating a <strong>{macdSignal}</strong> signal, while the moving average analysis
+              (SMA 20/50) shows a <strong>{maSignal}</strong> trend posture.
             </p>
           </div>
         </div>
@@ -421,20 +422,20 @@ export default function ReportsView({ currentStockData, activeSymbol }) {
                   </td>
                 </tr>
 
-                {/* Bollinger Bands */}
+                {/* Moving Averages */}
                 <tr className="print-border">
-                  <td className="print-text-white" style={{ padding: '12px 16px', color: C.white, fontWeight: 600 }}>Bollinger Bands</td>
+                  <td className="print-text-white" style={{ padding: '12px 16px', color: C.white, fontWeight: 600 }}>Moving Averages</td>
                   <td className="print-text-grey" style={{ padding: '12px 16px', color: C.grey }}>
-                    Bands: [${lowerB.toFixed(2)} - ${upperB.toFixed(2)}]
+                    SMA20: ${latestSma20 != null ? latestSma20.toFixed(2) : '—'} | SMA50: ${latestSma50 != null ? latestSma50.toFixed(2) : '—'}
                   </td>
                   <td style={{ padding: '12px 16px', textAlign: 'center' }}>
                     <span
                       style={{
-                        color: bbSignal === 'Oversold' ? C.green : bbSignal === 'Overbought' ? C.red : C.grey,
+                        color: maSignal === 'Bullish' ? C.green : maSignal === 'Bearish' ? C.red : C.grey,
                         fontWeight: 600,
                       }}
                     >
-                      {bbSignal}
+                      {maSignal}
                     </span>
                   </td>
                   <td
@@ -443,10 +444,10 @@ export default function ReportsView({ currentStockData, activeSymbol }) {
                       padding: '12px 16px',
                       textAlign: 'right',
                       fontWeight: 600,
-                      color: bbSignal === 'Oversold' ? C.green : bbSignal === 'Overbought' ? C.red : C.white,
+                      color: maSignal === 'Bullish' ? C.green : maSignal === 'Bearish' ? C.red : C.white,
                     }}
                   >
-                    {bbSignal === 'Oversold' ? '+1' : bbSignal === 'Overbought' ? '-1' : '0'}
+                    {maSignal === 'Bullish' ? '+1' : maSignal === 'Bearish' ? '-1' : '0'}
                   </td>
                 </tr>
               </tbody>
